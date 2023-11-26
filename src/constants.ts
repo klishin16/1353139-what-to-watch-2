@@ -3,6 +3,7 @@ export enum EAppRoute {
   SIGNIN = '/login',
   MYLIST = '/my-list',
   FILM = '/films/:id',
+  FILMS = '/films',
   ADDREVIEW = '/films/:id/review',
   PLAYER = '/player/:id',
 }

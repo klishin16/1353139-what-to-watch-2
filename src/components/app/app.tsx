@@ -1,4 +1,4 @@
-import MainPage, { IMainPageProps } from '../../pages/main/main-page.tsx';
+import MainPage from '../../pages/main/main-page.tsx';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { EAppRoute, EAuthorizationStatus } from '../../constants.ts';
 import SignInPage from '../../pages/sign-in/sign-in.tsx';
@@ -8,19 +8,23 @@ import PlayerPage from '../../pages/player/player.tsx';
 import NotFoundPage from '../../pages/not-found/not-found.tsx';
 import PrivateRoute from '../private-route/private-route.tsx';
 import MyListPage from '../../pages/my-list/my-list.tsx';
+import { IMovie } from '../../types';
+import ScrollToTop from '../scroll-to-top/ScrollToTop.tsx';
 
 
 interface IAppProps {
-  mainPageProps: IMainPageProps;
+  mainMovie: IMovie;
+  movies: IMovie[];
 }
 
-const App = ({mainPageProps}: IAppProps) => (
+const App = ({ mainMovie, movies }: IAppProps) => (
   <BrowserRouter>
+    <ScrollToTop />
     <Routes>
       <Route
         index
         path={ EAppRoute.MAIN }
-        element={ <MainPage { ...mainPageProps } /> }
+        element={ <MainPage { ...mainMovie } movies={movies} /> }
       />
       <Route
         path={ EAppRoute.SIGNIN }
@@ -28,7 +32,7 @@ const App = ({mainPageProps}: IAppProps) => (
       />
       <Route
         path={ EAppRoute.MYLIST }
-        element={ <PrivateRoute authorizationStatus={EAuthorizationStatus.NOAUTH}><MyListPage/></PrivateRoute> }
+        element={ <PrivateRoute authorizationStatus={EAuthorizationStatus.AUTH}><MyListPage movies={movies}/></PrivateRoute> }
       />
       <Route
         path={ EAppRoute.FILM }

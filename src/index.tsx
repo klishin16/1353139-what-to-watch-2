@@ -1,13 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app.tsx';
-import { IMainPageProps } from './pages/main/main-page.tsx';
-
-const mainPageProps: IMainPageProps = {
-  title: 'The Grand Budapest Hotel',
-  genre: 'Drama',
-  year: 2014
-};
+import { mockFilms } from './mocks/films.ts';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -15,6 +9,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App mainPageProps={mainPageProps} />
+    <App mainMovie={mockFilms[0]} movies={mockFilms} />
   </React.StrictMode>
 );
