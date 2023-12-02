@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { IReview } from '../../types';
+import { IAddReviewDto } from '../../types';
 
 
 const AddReviewForm = () => {
-  const [reviewForm, setReviewForm] = useState<IReview>({ rating: 8, text: '' });
+  const [reviewForm, setReviewForm] = useState<IAddReviewDto>({ rating: 8, text: '' });
 
   const ratingChangeHandler = (rating: number) => {
     setReviewForm({
