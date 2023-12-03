@@ -21,7 +21,7 @@ export const mockFilms: IMovie[] = [
   {
     id: '3',
     title: 'Macbeth',
-    genre: 'Drama',
+    genre: 'Thrillers',
     year: 2014,
     preview: 'img/macbeth.jpg',
     url: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
@@ -29,7 +29,7 @@ export const mockFilms: IMovie[] = [
   {
     id: '4',
     title: 'Aviator',
-    genre: 'Drama',
+    genre: 'Thrillers',
     year: 2014,
     preview: 'img/aviator.jpg',
     url: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
@@ -37,7 +37,7 @@ export const mockFilms: IMovie[] = [
   {
     id: '5',
     title: 'We need to talk about Kevin',
-    genre: 'Drama',
+    genre: 'Documentary',
     year: 2014,
     preview: 'img/we-need-to-talk-about-kevin.jpg',
     url: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
@@ -45,7 +45,7 @@ export const mockFilms: IMovie[] = [
   {
     id: '6',
     title: 'What We Do in the Shadows',
-    genre: 'Drama',
+    genre: 'Comedies',
     year: 2014,
     preview: 'img/what-we-do-in-the-shadows.jpg',
     url: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
@@ -53,7 +53,7 @@ export const mockFilms: IMovie[] = [
   {
     id: '7',
     title: 'Revenant',
-    genre: 'Drama',
+    genre: 'Romance',
     year: 2014,
     preview: 'img/revenant.jpg',
     url: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
@@ -61,7 +61,7 @@ export const mockFilms: IMovie[] = [
   {
     id: '8',
     title: 'Johnny English',
-    genre: 'Drama',
+    genre: 'Romance',
     year: 2014,
     preview: 'img/johnny-english.jpg',
     url: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',

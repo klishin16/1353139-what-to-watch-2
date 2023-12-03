@@ -24,7 +24,7 @@ const App = ({ mainMovie, movies }: IAppProps) => (
       <Route
         index
         path={ EAppRoute.MAIN }
-        element={ <MainPage { ...mainMovie } movies={movies} /> }
+        element={ <MainPage { ...mainMovie } /> }
       />
       <Route
         path={ EAppRoute.SIGNIN }
