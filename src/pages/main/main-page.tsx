@@ -1,18 +1,45 @@
-import React from 'react';
-import { IMovie } from '../../types';
+import React, { useEffect, useState } from 'react';
 import MoviesList from '../../components/movies-list/movies-list.tsx';
 import { useNavigate } from 'react-router-dom';
 import { EAppRoute } from '../../constants.ts';
+import GenresList from '../../components/genres-list/genres-list.tsx';
+import { useAppDispatch, useTypedSelector } from '../../hooks/useTypedSelector.ts';
+import { changeGenre, getMovies } from '../../store/action.ts';
+import { IGenre } from '../../types';
+import { mockFilmsWithDetails } from '../../mocks/films.ts';
 
 interface IMainPageProps {
   title: string;
   genre: string;
   year: number;
-  movies: IMovie[];
 }
 
-const MainPage = ({ title, genre, year, movies }: IMainPageProps) => {
+const MainPage = ({ title, genre, year }: IMainPageProps) => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const [genres, setGeneres] = useState<IGenre[]>([]);
+  const selectedGenre = useTypedSelector((state) => state.genre);
+  const movies = useTypedSelector((state) => state.movies);
+
+  useEffect(() => {
+    dispatch(getMovies());
+  }, [dispatch, selectedGenre]);
+
+  useEffect(() => {
+    setGeneres(
+      [{ id: -1, title: 'All genres' }].concat(
+        Array.from(mockFilmsWithDetails.reduce((acc, film) => acc.add(film.genre), new Set<string>()))
+          .map((t, index) => ({
+            id: index,
+            title: t
+          })))
+    );
+  }, []);
+
+  const genreChangeHandler = (g: IGenre) => {
+    dispatch(changeGenre(g));
+  };
 
   return (
     <React.Fragment>
@@ -81,38 +108,7 @@ const MainPage = ({ title, genre, year, movies }: IMainPageProps) => {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <ul className="catalog__genres-list">
-            <li className="catalog__genres-item catalog__genres-item--active">
-              <a href="#" className="catalog__genres-link">All genres</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Comedies</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Crime</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Documentary</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Dramas</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Horror</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Kids & Family</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Romance</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Sci-Fi</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Thrillers</a>
-            </li>
-          </ul>
+          <GenresList genres={genres} selectedGenre={selectedGenre} onGenreClick={genreChangeHandler} />
 
           <MoviesList movies={movies} />
 
