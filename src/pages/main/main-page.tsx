@@ -7,6 +7,7 @@ import { useAppDispatch, useTypedSelector } from '../../hooks/useTypedSelector.t
 import { changeGenre, getMovies } from '../../store/action.ts';
 import { IGenre } from '../../types';
 import { mockFilmsWithDetails } from '../../mocks/films.ts';
+import ShowMore from '../../components/show-more/show-more.tsx';
 
 interface IMainPageProps {
   title: string;
@@ -21,6 +22,7 @@ const MainPage = ({ title, genre, year }: IMainPageProps) => {
   const [genres, setGeneres] = useState<IGenre[]>([]);
   const selectedGenre = useTypedSelector((state) => state.genre);
   const movies = useTypedSelector((state) => state.movies);
+  const { loadedMovies, totalMovies } = useTypedSelector((state) => state);
 
   useEffect(() => {
     dispatch(getMovies());
@@ -110,11 +112,9 @@ const MainPage = ({ title, genre, year }: IMainPageProps) => {
 
           <GenresList genres={genres} selectedGenre={selectedGenre} onGenreClick={genreChangeHandler} />
 
-          <MoviesList movies={movies} />
+          <MoviesList movies={movies.slice(0, loadedMovies)} />
 
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          { totalMovies > loadedMovies && <ShowMore /> }
         </section>
 
         <footer className="page-footer">
