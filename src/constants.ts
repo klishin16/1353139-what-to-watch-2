@@ -13,3 +13,5 @@ export enum EAuthorizationStatus {
   NOAUTH = 'NO_AUTH',
   UNKNOWN= 'UNKNOWN',
 }
+
+export const MOVIES_BY_PAGE = 8;
