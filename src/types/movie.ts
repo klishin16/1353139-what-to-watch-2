@@ -1,10 +1,9 @@
 export interface IMovie {
   id: string;
-  title: string;
+  name: string;
+  previewImage: string;
+  previewVideoLink: string;
   genre: string;
-  year: number;
-  preview: string;
-  url: string;
 }
 
 export interface IMovieDetail extends IMovie {
@@ -12,4 +11,5 @@ export interface IMovieDetail extends IMovie {
   director: string;
   runTime: string;
   starring: string[];
+  year: number;
 }

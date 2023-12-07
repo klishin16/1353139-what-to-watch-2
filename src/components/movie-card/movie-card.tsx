@@ -30,10 +30,10 @@ const MovieCard = ({ movie, onCardHover }: IMovieCardProps) => {
   return (
     <article className="small-film-card catalog__films-card" onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler}>
       <div className="small-film-card__image">
-        <VideoPlayer src={movie.url} poster={movie.preview} muted playPreview={playPreview} height={175} width={280} />
+        <VideoPlayer src={movie.previewVideoLink} poster={movie.previewImage} muted playPreview={playPreview} height={175} width={280} />
       </div>
       <h3 className="small-film-card__title">
-        <Link className="small-film-card__link" to={`${EAppRoute.FILMS }/${ movie.id}`}>{ movie.title }</Link>
+        <Link className="small-film-card__link" to={`${EAppRoute.FILMS }/${ movie.id}`}>{ movie.name}</Link>
       </h3>
     </article>
   );

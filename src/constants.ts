@@ -15,3 +15,7 @@ export enum EAuthorizationStatus {
 }
 
 export const MOVIES_BY_PAGE = 8;
+
+export enum EAPIRoute {
+  Movies = '/films'
+}

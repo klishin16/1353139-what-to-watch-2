@@ -6,38 +6,37 @@ import GenresList from '../../components/genres-list/genres-list.tsx';
 import { useAppDispatch, useTypedSelector } from '../../hooks/useTypedSelector.ts';
 import { changeGenre, getMovies } from '../../store/action.ts';
 import { IGenre } from '../../types';
-import { mockFilmsWithDetails } from '../../mocks/films.ts';
 import ShowMore from '../../components/show-more/show-more.tsx';
 
 interface IMainPageProps {
-  title: string;
+  name: string;
   genre: string;
   year: number;
 }
 
-const MainPage = ({ title, genre, year }: IMainPageProps) => {
+const MainPage = ({ name, genre, year }: IMainPageProps) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const [genres, setGeneres] = useState<IGenre[]>([]);
+  const [genres, setGenres] = useState<IGenre[]>([]);
   const selectedGenre = useTypedSelector((state) => state.genre);
   const movies = useTypedSelector((state) => state.movies);
-  const { loadedMovies, totalMovies } = useTypedSelector((state) => state);
+  const { loadedMovies, totalMovies, allMovies } = useTypedSelector((state) => state);
 
   useEffect(() => {
     dispatch(getMovies());
   }, [dispatch, selectedGenre]);
 
   useEffect(() => {
-    setGeneres(
+    setGenres(
       [{ id: -1, title: 'All genres' }].concat(
-        Array.from(mockFilmsWithDetails.reduce((acc, film) => acc.add(film.genre), new Set<string>()))
+        Array.from(allMovies.reduce((acc, film) => acc.add(film.genre), new Set<string>()))
           .map((t, index) => ({
             id: index,
             title: t
           })))
     );
-  }, []);
+  }, [allMovies]);
 
   const genreChangeHandler = (g: IGenre) => {
     dispatch(changeGenre(g));
@@ -80,7 +79,7 @@ const MainPage = ({ title, genre, year }: IMainPageProps) => {
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{ title }</h2>
+              <h2 className="film-card__title">{ name }</h2>
               <p className="film-card__meta">
                 <span className="film-card__genre">{ genre }</span>
                 <span className="film-card__year">{ year }</span>
