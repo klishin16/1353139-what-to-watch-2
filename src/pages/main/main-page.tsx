@@ -1,27 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import MoviesList from '../../components/movies-list/movies-list.tsx';
-import { useNavigate } from 'react-router-dom';
-import { EAppRoute } from '../../constants.ts';
+import { Link, useNavigate } from 'react-router-dom';
+import { EAppRoute, EAuthorizationStatus } from '../../constants.ts';
 import GenresList from '../../components/genres-list/genres-list.tsx';
 import { useAppDispatch, useTypedSelector } from '../../hooks/useTypedSelector.ts';
 import { changeGenre, getMovies } from '../../store/action.ts';
 import { IGenre } from '../../types';
 import ShowMore from '../../components/show-more/show-more.tsx';
+import { logoutAction } from '../../store/api-actions.ts';
 
-interface IMainPageProps {
-  name: string;
-  genre: string;
-  year: number;
-}
 
-const MainPage = ({ name, genre, year }: IMainPageProps) => {
+const MainPage = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const [genres, setGenres] = useState<IGenre[]>([]);
-  const selectedGenre = useTypedSelector((state) => state.genre);
-  const movies = useTypedSelector((state) => state.movies);
-  const { loadedMovies, totalMovies, allMovies } = useTypedSelector((state) => state);
+  const { loadedMovies, totalMovies, allMovies, genre: selectedGenre, movies, authorizationStatus } = useTypedSelector((state) => state);
+  const { user } = useTypedSelector((state) => state);
 
   useEffect(() => {
     dispatch(getMovies());
@@ -40,6 +35,11 @@ const MainPage = ({ name, genre, year }: IMainPageProps) => {
 
   const genreChangeHandler = (g: IGenre) => {
     dispatch(changeGenre(g));
+  };
+
+  const signOutHandler = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    dispatch(logoutAction());
   };
 
   return (
@@ -61,14 +61,18 @@ const MainPage = ({ name, genre, year }: IMainPageProps) => {
           </div>
 
           <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a className="user-block__link">Sign out</a>
-            </li>
+            { authorizationStatus === EAuthorizationStatus.AUTH ?
+              <>
+                <li className="user-block__item">
+                  <div className="user-block__avatar">
+                    <img src={user?.avatarUrl || 'img/avatar.jpg'} alt="User avatar" width="63" height="63" />
+                  </div>
+                </li>
+                <li className="user-block__item">
+                  <a className="user-block__link" onClick={signOutHandler}>Sign out</a>
+                </li>
+              </>
+              : <li className="user-block__item"><Link to={EAppRoute.SIGNIN} className="user-block__link">Sign in</Link></li>}
           </ul>
         </header>
 
@@ -79,10 +83,10 @@ const MainPage = ({ name, genre, year }: IMainPageProps) => {
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{ name }</h2>
+              <h2 className="film-card__title">{ allMovies[0].name }</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{ genre }</span>
-                <span className="film-card__year">{ year }</span>
+                <span className="film-card__genre">{ allMovies[0].genre }</span>
+                <span className="film-card__year">{ 2000 }</span>
               </p>
 
               <div className="film-card__buttons">

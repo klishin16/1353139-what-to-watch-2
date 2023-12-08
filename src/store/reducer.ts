@@ -1,7 +1,15 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { IGenre, IMovie } from '../types';
-import { changeGenre, getMovies, loadAllMovies, setLoading, showMoreMovies } from './action.ts';
-import { MOVIES_BY_PAGE } from '../constants.ts';
+import { IGenre, IMovie, IUser } from '../types';
+import {
+  changeGenre,
+  getMovies,
+  loadAllMovies,
+  setAuthorizationStatus,
+  setError,
+  setLoading, setUser,
+  showMoreMovies
+} from './action.ts';
+import { EAuthorizationStatus, MOVIES_BY_PAGE } from '../constants.ts';
 
 interface IState {
   genre: IGenre;
@@ -10,6 +18,9 @@ interface IState {
   totalMovies: number;
   loadedMovies: number;
   isLoading: boolean;
+  authorizationStatus: EAuthorizationStatus;
+  user: IUser | null;
+  error: string | null;
 }
 
 const initialState: IState = {
@@ -19,6 +30,9 @@ const initialState: IState = {
   totalMovies: 0,
   loadedMovies: 0,
   isLoading: true,
+  authorizationStatus: EAuthorizationStatus.UNKNOWN,
+  user: null,
+  error: null
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -39,6 +53,15 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setLoading, (state, action) => {
       state.isLoading = action.payload;
+    })
+    .addCase(setAuthorizationStatus, (state, action) => {
+      state.authorizationStatus = action.payload;
+    })
+    .addCase(setError, (state, action) => {
+      state.error = action.payload;
+    })
+    .addCase(setUser, (state, action) => {
+      state.user = action.payload;
     });
 });
 
