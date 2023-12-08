@@ -15,7 +15,11 @@ export enum EAuthorizationStatus {
 }
 
 export const MOVIES_BY_PAGE = 8;
+export const AUTH_TOKEN_KEY_NAME = 'what-to-watch-token';
+export const TIMEOUT_SHOW_ERROR = 2000;
 
 export enum EAPIRoute {
-  Movies = '/films'
+  MOVIES = '/films',
+  LOGIN = '/login',
+  LOGOUT = '/logout'
 }

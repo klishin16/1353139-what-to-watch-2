@@ -1,6 +1,6 @@
 import MainPage from '../../pages/main/main-page.tsx';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { EAppRoute, EAuthorizationStatus } from '../../constants.ts';
+import { EAppRoute } from '../../constants.ts';
 import SignInPage from '../../pages/sign-in/sign-in.tsx';
 import MoviePage from '../../pages/movie-page/movie-page.tsx';
 import AddReviewPage from '../../pages/add-review/add-review.tsx';
@@ -8,26 +8,13 @@ import PlayerPage from '../../pages/player/player.tsx';
 import NotFoundPage from '../../pages/not-found/not-found.tsx';
 import PrivateRoute from '../private-route/private-route.tsx';
 import MyListPage from '../../pages/my-list/my-list.tsx';
-import { IMovie, IMovieDetail } from '../../types';
 import ScrollToTop from '../scroll-to-top/ScrollToTop.tsx';
-import { useEffect } from 'react';
 import Loader from '../loader/loader.tsx';
-import { useAppDispatch, useTypedSelector } from '../../hooks/useTypedSelector.ts';
-import { fetchAllMoviesAction } from '../../store/api-actions.ts';
+import { useTypedSelector } from '../../hooks/useTypedSelector.ts';
 
 
-interface IAppProps {
-  mainMovie: IMovieDetail;
-  movies: IMovie[];
-}
-
-const App = ({ mainMovie, movies }: IAppProps) => {
+const App = () => {
   const isLoading = useTypedSelector((state) => state.isLoading);
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(fetchAllMoviesAction());
-  }, [dispatch]);
 
 
   return (
@@ -39,7 +26,7 @@ const App = ({ mainMovie, movies }: IAppProps) => {
           path={ EAppRoute.MAIN }
           element={
             <Loader isLoading={isLoading} >
-              <MainPage { ...mainMovie } />
+              <MainPage />
             </Loader>
           }
         />
@@ -50,8 +37,8 @@ const App = ({ mainMovie, movies }: IAppProps) => {
         <Route
           path={ EAppRoute.MYLIST }
           element={
-            <PrivateRoute authorizationStatus={ EAuthorizationStatus.AUTH }>
-              <MyListPage movies={ movies } />
+            <PrivateRoute>
+              <MyListPage movies={ [] } />
             </PrivateRoute>
           }
         />
