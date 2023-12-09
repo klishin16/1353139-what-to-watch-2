@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import { Link } from 'react-router-dom';
 import { EAppRoute, EAuthorizationStatus } from '../../constants.ts';
 import { useAppDispatch, useTypedSelector } from '../../hooks/useTypedSelector.ts';
 import { logoutAction } from '../../store/api-actions.ts';
 
-const Header = () => {
+export const Header = ({ children }: PropsWithChildren) => {
   const dispatch = useAppDispatch();
-  const { authorizationStatus, user } = useTypedSelector((state) => state);
+  const { authorizationStatus, user } = useTypedSelector((state) => state.auth);
 
   const signOutHandler = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -14,7 +14,7 @@ const Header = () => {
   };
 
   return (
-    <header className="page-header film-card__head">
+    <header className="page-header user-page__head">
       <div className="logo">
         <Link to={ EAppRoute.MAIN } className="logo__link">
           <span className="logo__letter logo__letter--1">W</span>
@@ -22,6 +22,8 @@ const Header = () => {
           <span className="logo__letter logo__letter--3">W</span>
         </Link>
       </div>
+
+      { children }
 
       <ul className="user-block">
         { authorizationStatus === EAuthorizationStatus.AUTH ?
@@ -40,5 +42,3 @@ const Header = () => {
     </header>
   );
 };
-
-export default Header;

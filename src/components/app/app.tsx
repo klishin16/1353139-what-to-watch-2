@@ -9,12 +9,12 @@ import NotFoundPage from '../../pages/not-found/not-found.tsx';
 import PrivateRoute from '../private-route/private-route.tsx';
 import MyListPage from '../../pages/my-list/my-list.tsx';
 import ScrollToTop from '../scroll-to-top/ScrollToTop.tsx';
-import Loader from '../loader/loader.tsx';
 import { useTypedSelector } from '../../hooks/useTypedSelector.ts';
+import { Loader } from '../loader/loader.tsx';
 
 
 const App = () => {
-  const isLoading = useTypedSelector((state) => state.isLoading);
+  const isLoading = useTypedSelector((state) => state.movies.isLoading);
 
 
   return (
@@ -51,7 +51,7 @@ const App = () => {
           element={ <AddReviewPage/> }
         />
         <Route
-          path={ EAppRoute.PLAYER }
+          path={ `${EAppRoute.PLAYER }/:id` }
           element={ <PlayerPage/> }
         />
         <Route

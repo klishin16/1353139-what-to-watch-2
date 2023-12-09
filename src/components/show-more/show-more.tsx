@@ -1,7 +1,7 @@
 import { useAppDispatch } from '../../hooks/useTypedSelector.ts';
-import { showMoreMovies } from '../../store/action.ts';
+import { showMoreMovies } from '../../store/movies.slice.ts';
 
-const ShowMore = () => {
+export const ShowMore = () => {
   const dispatch = useAppDispatch();
 
   const showMoreButtonClickHandler = () => {
@@ -14,5 +14,3 @@ const ShowMore = () => {
     </div>
   );
 };
-
-export default ShowMore;

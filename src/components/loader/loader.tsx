@@ -6,7 +6,7 @@ interface ILoaderProps extends PropsWithChildren {
   isLoading?: boolean;
 }
 
-const Loader: React.FC<ILoaderProps> = ({ isLoading, children }) => {
+export const Loader: React.FC<ILoaderProps> = ({ isLoading, children }) => {
   if (!isLoading && children) {
     return <div>{ children }</div>;
   }
@@ -17,5 +17,3 @@ const Loader: React.FC<ILoaderProps> = ({ isLoading, children }) => {
     </div>
   );
 };
-
-export default Loader;

@@ -2,18 +2,16 @@ import { IMovie } from '../../types';
 import { Link } from 'react-router-dom';
 import { EAppRoute } from '../../constants.ts';
 import VideoPlayer from '../video-player/video-player.tsx';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 interface IMovieCardProps {
   movie: IMovie;
-  onCardHover: (movie: IMovie) => void;
 }
 
-const MovieCard = ({ movie, onCardHover }: IMovieCardProps) => {
+const MovieCard = React.memo(({ movie }: IMovieCardProps) => {
   const [playPreview, setPlayPreview] = useState<boolean>(false);
   const [timeoutId, setTimeoutId] = useState<number | null>(null);
   const mouseEnterHandler = () => {
-    onCardHover(movie);
     const id = window.setTimeout(() => {
       setPlayPreview(true);
     }, 1000);
@@ -37,7 +35,8 @@ const MovieCard = ({ movie, onCardHover }: IMovieCardProps) => {
       </h3>
     </article>
   );
-};
+});
+
+MovieCard.displayName = 'MovieCard';
 
 export default MovieCard;
-

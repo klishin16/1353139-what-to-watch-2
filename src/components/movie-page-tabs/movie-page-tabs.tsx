@@ -14,7 +14,7 @@ interface IMoviePageTabsProps {
   reviewsStatistics: IReviewStatistics;
 }
 
-const MoviePageTabs = ({ movie, reviews, reviewsStatistics }: IMoviePageTabsProps) => {
+export const MoviePageTabs = ({ movie, reviews, reviewsStatistics }: IMoviePageTabsProps) => {
   const [activeTab, setActiveTab] = useState<EMoviePageTab>(EMoviePageTab.OVERVIEW);
 
   const tabLinkClickHandler = (e: React.MouseEvent<HTMLAnchorElement>, tab: EMoviePageTab) => {
@@ -143,5 +143,3 @@ const MoviePageTabs = ({ movie, reviews, reviewsStatistics }: IMoviePageTabsProp
     </div>
   );
 };
-
-export default MoviePageTabs;
