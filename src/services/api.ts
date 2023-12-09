@@ -9,6 +9,7 @@ const REQUEST_TIMEOUT = 5000;
 type DetailMessageType = {
   type: string;
   message: string;
+  details: Array<{ property: string; messages: [] }>;
 }
 
 const StatusCodeMapping: Record<number, boolean> = {
@@ -42,7 +43,9 @@ export const createAPI = (): AxiosInstance => {
       if (error.response && shouldDisplayError(error.response)) {
         const detailMessage = (error.response.data);
 
-        processErrorHandle(detailMessage.message);
+        const errorMessage = detailMessage.details?.map((detail) => detail.messages).toString() || detailMessage.message;
+
+        processErrorHandle(errorMessage);
       }
 
       throw error;

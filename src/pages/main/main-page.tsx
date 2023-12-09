@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import MoviesList from '../../components/movies-list/movies-list.tsx';
-import { Link, useNavigate } from 'react-router-dom';
-import { EAppRoute, EAuthorizationStatus } from '../../constants.ts';
+import { useNavigate } from 'react-router-dom';
+import { EAppRoute} from '../../constants.ts';
 import GenresList from '../../components/genres-list/genres-list.tsx';
 import { useAppDispatch, useTypedSelector } from '../../hooks/useTypedSelector.ts';
 import { changeGenre, getMovies } from '../../store/action.ts';
 import { IGenre } from '../../types';
 import ShowMore from '../../components/show-more/show-more.tsx';
-import { logoutAction } from '../../store/api-actions.ts';
+import Header from '../../components/header/header.tsx';
 
 
 const MainPage = () => {
@@ -15,8 +15,7 @@ const MainPage = () => {
   const dispatch = useAppDispatch();
 
   const [genres, setGenres] = useState<IGenre[]>([]);
-  const { loadedMovies, totalMovies, allMovies, genre: selectedGenre, movies, authorizationStatus } = useTypedSelector((state) => state);
-  const { user } = useTypedSelector((state) => state);
+  const { loadedMovies, totalMovies, allMovies, genre: selectedGenre, movies } = useTypedSelector((state) => state);
 
   useEffect(() => {
     dispatch(getMovies());
@@ -37,11 +36,6 @@ const MainPage = () => {
     dispatch(changeGenre(g));
   };
 
-  const signOutHandler = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    dispatch(logoutAction());
-  };
-
   return (
     <React.Fragment>
       <section className="film-card">
@@ -51,30 +45,7 @@ const MainPage = () => {
 
         <h1 className="visually-hidden">WTW</h1>
 
-        <header className="page-header film-card__head">
-          <div className="logo">
-            <a className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
-          <ul className="user-block">
-            { authorizationStatus === EAuthorizationStatus.AUTH ?
-              <>
-                <li className="user-block__item">
-                  <div className="user-block__avatar">
-                    <img src={user?.avatarUrl || 'img/avatar.jpg'} alt="User avatar" width="63" height="63" />
-                  </div>
-                </li>
-                <li className="user-block__item">
-                  <a className="user-block__link" onClick={signOutHandler}>Sign out</a>
-                </li>
-              </>
-              : <li className="user-block__item"><Link to={EAppRoute.SIGNIN} className="user-block__link">Sign in</Link></li>}
-          </ul>
-        </header>
+        <Header />
 
         <div className="film-card__wrap">
           <div className="film-card__info">

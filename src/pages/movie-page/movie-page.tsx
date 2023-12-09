@@ -1,59 +1,68 @@
-import { EAppRoute } from '../../constants.ts';
+import { EAPIRoute, EAppRoute, EAuthorizationStatus } from '../../constants.ts';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import MoviePageTabs from '../../components/movie-page-tabs/movie-page-tabs.tsx';
-import { mockReviews } from '../../mocks/reviews.ts';
-import { mockFilms, mockFilmsWithDetails } from '../../mocks/films.ts';
 import MoviesList from '../../components/movies-list/movies-list.tsx';
 import { useEffect, useState } from 'react';
-import { IMovie } from '../../types';
+import { IMovie, IMovieDetail, IReview } from '../../types';
+import { api } from '../../store';
+import Loader from '../../components/loader/loader.tsx';
+import Header from '../../components/header/header.tsx';
+import { useTypedSelector } from '../../hooks/useTypedSelector.ts';
 
 const MoviePage = () => {
   const {id} = useParams();
   const navigate = useNavigate();
 
-  const [movie, setMovie] = useState<IMovie>();
+  const [movie, setMovie] = useState<IMovieDetail>();
+  const [reviews, setReviews] = useState<IReview[]>();
+  const [similarMovies, setSimilarMovies] = useState<IMovie[]>();
+
+  const authorizationStatus = useTypedSelector((state) => state.authorizationStatus);
 
   useEffect(() => {
-    setMovie(mockFilms.find((m) => m.id === id));
-  }, [id]);
+    if (id && navigate) {
+      api.get<IMovieDetail>(`${EAPIRoute.MOVIES}/${id}`)
+        .then(({ data }) => {
+          setMovie(data);
+        })
+        .catch(() => {
+          navigate(EAppRoute.NOTFOUND);
+        });
+
+      api.get<IReview[]>(`${EAPIRoute.COMMENTS}/${id}`)
+        .then(({ data }) => {
+          setReviews(data);
+        });
+
+      api.get<IMovie[]>(`${EAPIRoute.MOVIES }/${ id }/similar`)
+        .then(({ data }) => {
+          setSimilarMovies(data);
+        });
+    }
+  }, [id, navigate]);
+
+  if (!movie) {
+    return <Loader />;
+  }
 
   return (
     <div>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
+            <img src={movie.backgroundImage} alt={movie.name}/>
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
 
-          <header className="page-header film-card__head">
-            <div className="logo">
-              <Link to={ EAppRoute.MAIN } className="logo__link">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </Link>
-            </div>
-
-            <ul className="user-block">
-              <li className="user-block__item">
-                <div className="user-block__avatar">
-                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-                </div>
-              </li>
-              <li className="user-block__item">
-                <a className="user-block__link">Sign out</a>
-              </li>
-            </ul>
-          </header>
+          <Header />
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">The Grand Budapest Hotel</h2>
+              <h2 className="film-card__title">{movie.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">Drama</span>
-                <span className="film-card__year">2014</span>
+                <span className="film-card__genre">{movie.genre}</span>
+                <span className="film-card__year">{movie.released}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -70,7 +79,7 @@ const MoviePage = () => {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-                <Link to={`${EAppRoute.FILMS}/${id ?? 1}/review`} className="btn film-card__button">Add review</Link>
+                { authorizationStatus === EAuthorizationStatus.AUTH && <Link to={`${EAppRoute.FILMS}/${id ?? 1}/review`} className="btn film-card__button">Add review</Link> }
               </div>
             </div>
           </div>
@@ -79,15 +88,15 @@ const MoviePage = () => {
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218"
+              <img src={movie.posterImage} alt={movie.name} width="218"
                 height="327"
               />
             </div>
 
             <MoviePageTabs
-              reviews={mockReviews}
-              movie={mockFilmsWithDetails.find((f) => f.id === id) ?? mockFilmsWithDetails[0]}
-              reviewsStatistics={{ averageRating: 8.9, totalReviews: 250 }}
+              reviews={reviews ?? []}
+              movie={movie}
+              reviewsStatistics={{ averageRating: movie.rating, totalReviews: movie.scoresCount }}
             />
           </div>
         </div>
@@ -97,7 +106,7 @@ const MoviePage = () => {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <MoviesList movies={mockFilms.filter((m) => m.genre === movie?.genre)?.slice(0, 4) ?? []} />
+          <MoviesList movies={ similarMovies?.slice(0, 4) ?? []} />
         </section>
 
         <footer className="page-footer">
