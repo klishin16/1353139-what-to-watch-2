@@ -2,17 +2,20 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, IAuthPayload, IMovie, IUser, State } from '../types';
 import { AxiosInstance } from 'axios';
 import { EAPIRoute, EAuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../constants.ts';
-import { loadAllMovies, setAuthorizationStatus, setError, setLoading, setUser } from './action.ts';
 import { dropToken, saveToken } from '../services/token.ts';
+import { setAuthorizationStatus, setUser } from './auth.slice.ts';
+import { setAllMovies, setLoading } from './movies.slice.ts';
+import { setError } from './errors.slice.ts';
 
-export const fetchAllMoviesAction = createAsyncThunk<void, undefined, {
+export const fetchAllMoviesAction = createAsyncThunk<IMovie[], undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>('fetchAllMovies', async (_, { dispatch, extra: api }) => {
   const { data } = await api.get<IMovie[]>(EAPIRoute.MOVIES);
-  dispatch(loadAllMovies(data));
+  dispatch(setAllMovies(data));
   dispatch(setLoading(false));
+  return data;
 });
 
 
@@ -21,7 +24,7 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'user/checkAuth',
+  'auth/checkAuth',
   async (_arg, {dispatch, extra: api}) => {
     try {
       const { data: user } = await api.get<IUser>(EAPIRoute.LOGIN);

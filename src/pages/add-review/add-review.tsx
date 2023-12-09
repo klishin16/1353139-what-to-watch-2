@@ -1,11 +1,9 @@
-import AddReviewForm from '../../components/add-review-form/add-review-form.tsx';
-import Header from '../../components/header/header.tsx';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { api } from '../../store';
 import { IMovieDetail } from '../../types';
 import { EAPIRoute } from '../../constants.ts';
-import Loader from '../../components/loader/loader.tsx';
+import { AddReviewForm, Header, Loader } from '../../components';
 
 
 const AddReviewPage = () => {

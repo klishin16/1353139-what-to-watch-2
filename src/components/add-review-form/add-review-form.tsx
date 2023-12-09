@@ -9,7 +9,7 @@ interface IAddReviewFormProps {
   movieId: string;
 }
 
-const AddReviewForm = ({ movieId }: IAddReviewFormProps) => {
+export const AddReviewForm = ({ movieId }: IAddReviewFormProps) => {
   const navigate = useNavigate();
   const [reviewForm, setReviewForm] = useState<IAddReviewDto>({ rating: 8, comment: '' });
 
@@ -60,5 +60,3 @@ const AddReviewForm = ({ movieId }: IAddReviewFormProps) => {
     </div>
   );
 };
-
-export default AddReviewForm;

@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom/client';
 import App from './components/app/app.tsx';
 import { Provider } from 'react-redux';
 import { store } from './store';
-import ErrorMessage from './components/error-message/error-message.tsx';
 import { checkAuthAction, fetchAllMoviesAction } from './store/api-actions.ts';
+import { ErrorMessage } from './components';
 
 
 store.dispatch(fetchAllMoviesAction());

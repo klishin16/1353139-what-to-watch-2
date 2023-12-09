@@ -1,16 +1,16 @@
 import { IGenre } from '../../types';
 import React from 'react';
+import { useAppDispatch, useTypedSelector } from '../../hooks/useTypedSelector.ts';
+import { changeGenre } from '../../store/movies.slice.ts';
 
-export interface IGenresListProps {
-  genres: IGenre[];
-  selectedGenre: IGenre;
-  onGenreClick: (genre: IGenre) => void;
-}
 
-const GenresList = ({ genres, selectedGenre, onGenreClick }: IGenresListProps) => {
+export const GenresList = () => {
+  const dispatch = useAppDispatch();
+  const { genres, selectedGenre } = useTypedSelector((state) => state.movies);
+
   const genreClickHandler = (e: React.MouseEvent<HTMLAnchorElement>, genre: IGenre) => {
     e.preventDefault();
-    onGenreClick(genre);
+    dispatch(changeGenre(genre));
   };
 
   return (
@@ -23,5 +23,3 @@ const GenresList = ({ genres, selectedGenre, onGenreClick }: IGenresListProps) =
     </ul>
   );
 };
-
-export default GenresList;

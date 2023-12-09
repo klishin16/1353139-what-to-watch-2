@@ -1,13 +1,10 @@
 import { EAPIRoute, EAppRoute, EAuthorizationStatus } from '../../constants.ts';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import MoviePageTabs from '../../components/movie-page-tabs/movie-page-tabs.tsx';
-import MoviesList from '../../components/movies-list/movies-list.tsx';
 import { useEffect, useState } from 'react';
 import { IMovie, IMovieDetail, IReview } from '../../types';
 import { api } from '../../store';
-import Loader from '../../components/loader/loader.tsx';
-import Header from '../../components/header/header.tsx';
 import { useTypedSelector } from '../../hooks/useTypedSelector.ts';
+import { Footer, Header, Loader, MoviePageTabs, MoviesList } from '../../components';
 
 const MoviePage = () => {
   const {id} = useParams();
@@ -17,7 +14,7 @@ const MoviePage = () => {
   const [reviews, setReviews] = useState<IReview[]>();
   const [similarMovies, setSimilarMovies] = useState<IMovie[]>();
 
-  const authorizationStatus = useTypedSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useTypedSelector((state) => state.auth.authorizationStatus);
 
   useEffect(() => {
     if (id && navigate) {
@@ -66,7 +63,7 @@ const MoviePage = () => {
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
+                <button className="btn btn--play film-card__button" type="button" onClick={() => navigate(`${EAppRoute.PLAYER }/${ movie.id}`)}>
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
@@ -109,19 +106,7 @@ const MoviePage = () => {
           <MoviesList movies={ similarMovies?.slice(0, 4) ?? []} />
         </section>
 
-        <footer className="page-footer">
-          <div className="logo">
-            <Link to={EAppRoute.MAIN} className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </Link>
-          </div>
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </div>
   );
