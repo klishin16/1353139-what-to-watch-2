@@ -1,16 +1,21 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import './loader.css';
 
 
-interface ILoaderProps {
-  isLoading: boolean;
-  children: React.ReactElement;
+interface ILoaderProps extends PropsWithChildren {
+  isLoading?: boolean;
 }
 
-const Loader: React.FC<ILoaderProps> = ({ isLoading, children }) => (
-  isLoading
-    ? <div className="spinner-container"><div className="loading-spinner"></div></div>
-    : children
-);
+const Loader: React.FC<ILoaderProps> = ({ isLoading, children }) => {
+  if (!isLoading && children) {
+    return <div>{ children }</div>;
+  }
+
+  return (
+    <div className="spinner-container">
+      <div className="loading-spinner"></div>
+    </div>
+  );
+};
 
 export default Loader;

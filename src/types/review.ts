@@ -1,14 +1,14 @@
 export interface IAddReviewDto {
   rating: number;
-  text: string;
+  comment: string;
 }
 
 export interface IReview {
   id: string;
   rating: number;
-  text: string;
-  author: string;
-  timestamp: number;
+  comment: string;
+  user: string;
+  date: number;
 }
 
 export interface IReviewStatistics {

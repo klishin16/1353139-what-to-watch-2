@@ -6,10 +6,14 @@ export interface IMovie {
   genre: string;
 }
 
-export interface IMovieDetail extends IMovie {
+export interface IMovieDetail extends Omit<IMovie, 'previewImage' | 'previewVideoLink'> {
   description: string;
   director: string;
   runTime: string;
   starring: string[];
-  year: number;
+  posterImage: string;
+  backgroundImage: string;
+  released: number;
+  rating: number;
+  scoresCount: number;
 }

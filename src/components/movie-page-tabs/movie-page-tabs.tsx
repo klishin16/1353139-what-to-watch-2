@@ -22,14 +22,29 @@ const MoviePageTabs = ({ movie, reviews, reviewsStatistics }: IMoviePageTabsProp
     setActiveTab(tab);
   };
 
+  const getLevel = (rating: number) => {
+    switch (true) {
+      case rating < 3:
+        return 'Very bad';
+      case rating >= 3 && rating < 4:
+        return 'Bad';
+      case rating >= 5 && rating < 6:
+        return 'Normal';
+      case rating >= 6 && rating < 8:
+        return 'Good';
+      case rating >= 8:
+        return 'Very good';
+    }
+  };
+
   const renderReview = (review: IReview) => (
     <div className="review" key={review.id}>
       <blockquote className="review__quote">
-        <p className="review__text">{ review.text }</p>
+        <p className="review__text">{ review.comment }</p>
 
         <footer className="review__details">
-          <cite className="review__author">{ review.author }</cite>
-          <time className="review__date" dateTime="2016-12-24">{ new Date(review.timestamp).toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) }</time>
+          <cite className="review__author">{ review.user }</cite>
+          <time className="review__date" dateTime="2016-12-24">{ new Date(review.date).toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) }</time>
         </footer>
       </blockquote>
 
@@ -45,7 +60,7 @@ const MoviePageTabs = ({ movie, reviews, reviewsStatistics }: IMoviePageTabsProp
             <div className="film-rating">
               <div className="film-rating__score">{ reviewsStatistics.averageRating.toFixed(1).replace('.', ',') }</div>
               <p className="film-rating__meta">
-                <span className="film-rating__level">Very good</span>
+                <span className="film-rating__level">{ getLevel(reviewsStatistics.averageRating) }</span>
                 <span className="film-rating__count">{reviewsStatistics.totalReviews} ratings</span>
               </p>
             </div>
@@ -90,7 +105,7 @@ const MoviePageTabs = ({ movie, reviews, reviewsStatistics }: IMoviePageTabsProp
               </p>
               <p className="film-card__details-item">
                 <strong className="film-card__details-name">Released</strong>
-                <span className="film-card__details-value">{ movie.year }</span>
+                <span className="film-card__details-value">{ movie.released }</span>
               </p>
             </div>
           </div>
@@ -98,12 +113,16 @@ const MoviePageTabs = ({ movie, reviews, reviewsStatistics }: IMoviePageTabsProp
       case EMoviePageTab.REVIEWS:
         return (
           <div className="film-card__reviews film-card__row">
-            <div className="film-card__reviews-col">
-              { reviews.filter((_, index) => !(index % 2)).map((review) => renderReview(review)) }
-            </div>
-            <div className="film-card__reviews-col">
-              { reviews.filter((_, index) => index % 2).map((review) => renderReview(review)) }
-            </div>
+            { reviews.length ?
+              <>
+                <div className="film-card__reviews-col">
+                  { reviews.filter((_, index) => !(index % 2)).map((review) => renderReview(review)) }
+                </div>
+                <div className="film-card__reviews-col">
+                  { reviews.filter((_, index) => index % 2).map((review) => renderReview(review)) }
+                </div>
+              </> :
+              <div style={{ color: 'black' }}>No reviews</div>}
           </div>
         );
     }

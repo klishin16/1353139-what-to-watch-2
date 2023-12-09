@@ -55,7 +55,7 @@ const App = () => {
           element={ <PlayerPage/> }
         />
         <Route
-          path="*"
+          path={ EAppRoute.NOTFOUND }
           element={ <NotFoundPage/> }
         />
       </Routes>

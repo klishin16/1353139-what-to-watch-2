@@ -6,6 +6,7 @@ export enum EAppRoute {
   FILMS = '/films',
   ADDREVIEW = '/films/:id/review',
   PLAYER = '/player/:id',
+  NOTFOUND = '*',
 }
 
 export enum EAuthorizationStatus {
@@ -20,6 +21,7 @@ export const TIMEOUT_SHOW_ERROR = 2000;
 
 export enum EAPIRoute {
   MOVIES = '/films',
+  COMMENTS = '/comments',
   LOGIN = '/login',
-  LOGOUT = '/logout'
+  LOGOUT = '/logout',
 }
