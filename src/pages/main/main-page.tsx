@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { EAPIRoute, EAppRoute } from '../../constants.ts';
 import { IMovieDetail } from '../../types';
-import { Footer, Header } from '../../components';
+import { Footer, Header, MyListButton } from '../../components';
 import { api } from '../../store';
 import Catalog from '../../components/catalog/catalog.tsx';
 
@@ -51,13 +51,7 @@ const MainPage = () => {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list film-card__button" type="button" onClick={() => navigate(EAppRoute.MYLIST)}>
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                  <span className="film-card__count">9</span>
-                </button>
+                { promo && <MyListButton movieId={promo.id} /> }
               </div>
             </div>
           </div>

@@ -7,3 +7,4 @@ export * from './movies-list/movies-list.tsx';
 export * from './loader/loader.tsx';
 export * from './movie-page-tabs/movie-page-tabs.tsx';
 export * from './add-review-form/add-review-form.tsx';
+export * from './my-list-button/my-list-button.tsx';

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IGenre, IMovie } from '../types';
 import { MOVIES_BY_PAGE } from '../constants.ts';
-import { fetchAllMoviesAction } from './api-actions.ts';
+import { changeMovieFavoriteStatusAction, fetchAllMoviesAction } from './api-actions.ts';
 
 interface IMoviesSliceState {
   genres: IGenre[];
@@ -11,6 +11,7 @@ interface IMoviesSliceState {
   totalMovies: number;
   loadedMovies: number;
   isLoading: boolean;
+  favoriteMovies: IMovie[] | null;
 }
 
 const initialState: IMoviesSliceState = {
@@ -21,6 +22,7 @@ const initialState: IMoviesSliceState = {
   totalMovies: 0,
   loadedMovies: 0,
   isLoading: true,
+  favoriteMovies: null
 };
 
 export const moviesSlice = createSlice({
@@ -43,6 +45,9 @@ export const moviesSlice = createSlice({
     },
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;
+    },
+    setFavoriteMovies: (state, action: PayloadAction<IMovie[]>) => {
+      state.favoriteMovies = action.payload;
     }
   },
   extraReducers: (builder) => {
@@ -54,8 +59,17 @@ export const moviesSlice = createSlice({
               id: index,
               title: t
             })));
+      })
+      .addCase(changeMovieFavoriteStatusAction.fulfilled, (state, action) => {
+        if (state.favoriteMovies) {
+          if (action.payload.status) {
+            state.favoriteMovies.push(action.payload.movie);
+          } else {
+            state.favoriteMovies = state.favoriteMovies.filter((favoriteMovie) => favoriteMovie.id !== action.payload.movie.id);
+          }
+        }
       });
   }
 });
 
-export const {setAllMovies, getMovies, showMoreMovies, setLoading, changeGenre} = moviesSlice.actions;
+export const {setAllMovies, setFavoriteMovies, getMovies, showMoreMovies, setLoading, changeGenre} = moviesSlice.actions;

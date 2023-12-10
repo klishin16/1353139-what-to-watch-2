@@ -1,10 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { AppDispatch, IAuthPayload, IMovie, IUser, State } from '../types';
+import { AppDispatch, IAuthPayload, IMovie, IMovieChangeFavoriteStatusPayload, IUser, State } from '../types';
 import { AxiosInstance } from 'axios';
 import { EAPIRoute, EAuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../constants.ts';
 import { dropToken, saveToken } from '../services/token.ts';
 import { setAuthorizationStatus, setUser } from './auth.slice.ts';
-import { setAllMovies, setLoading } from './movies.slice.ts';
+import { setAllMovies, setFavoriteMovies, setLoading } from './movies.slice.ts';
 import { setError } from './errors.slice.ts';
 
 export const fetchAllMoviesAction = createAsyncThunk<IMovie[], undefined, {
@@ -18,6 +18,15 @@ export const fetchAllMoviesAction = createAsyncThunk<IMovie[], undefined, {
   return data;
 });
 
+export const fetchFavoriteMoviesAction = createAsyncThunk<IMovie[], undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>('fetchFavoriteMovies', async (_, { dispatch, extra: api }) => {
+  const { data } = await api.get<IMovie[]>(EAPIRoute.FAVORITE_MOVIES);
+  dispatch(setFavoriteMovies(data));
+  return data;
+});
 
 export const checkAuthAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -73,3 +82,12 @@ export const clearErrorAction = createAsyncThunk(
     );
   },
 );
+
+export const changeMovieFavoriteStatusAction = createAsyncThunk<IMovieChangeFavoriteStatusPayload, IMovieChangeFavoriteStatusPayload, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>('changeMovieFavoriteStatus', async ({ movie, status }, { extra: api }) => {
+  await api.post(`${EAPIRoute.FAVORITE_MOVIES }/${ movie.id }/${Number(status)}`);
+  return { movie, status };
+});

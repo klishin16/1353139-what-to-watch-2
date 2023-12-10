@@ -31,14 +31,14 @@ const App = () => {
           }
         />
         <Route
-          path={ EAppRoute.SIGNIN }
+          path={ EAppRoute.SIGN_IN }
           element={ <SignInPage/> }
         />
         <Route
-          path={ EAppRoute.MYLIST }
+          path={ EAppRoute.MY_LIST }
           element={
             <PrivateRoute>
-              <MyListPage movies={ [] } />
+              <MyListPage />
             </PrivateRoute>
           }
         />
@@ -47,7 +47,7 @@ const App = () => {
           element={ <MoviePage/> }
         />
         <Route
-          path={ EAppRoute.ADDREVIEW }
+          path={ EAppRoute.ADD_REVIEW }
           element={ <AddReviewPage/> }
         />
         <Route

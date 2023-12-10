@@ -16,4 +16,10 @@ export interface IMovieDetail extends Omit<IMovie, 'previewImage' | 'previewVide
   released: number;
   rating: number;
   scoresCount: number;
+  videoLink: string;
+}
+
+export interface IMovieChangeFavoriteStatusPayload {
+  movie: IMovie;
+  status: boolean;
 }
