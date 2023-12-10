@@ -1,16 +1,22 @@
 import React, { PropsWithChildren } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { EAppRoute, EAuthorizationStatus } from '../../constants.ts';
 import { useAppDispatch, useTypedSelector } from '../../hooks/useTypedSelector.ts';
 import { logoutAction } from '../../store/api-actions.ts';
 
 export const Header = ({ children }: PropsWithChildren) => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { authorizationStatus, user } = useTypedSelector((state) => state.auth);
 
   const signOutHandler = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     dispatch(logoutAction());
+  };
+
+  const myListHandler = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    navigate(EAppRoute.MY_LIST);
   };
 
   return (
@@ -34,10 +40,13 @@ export const Header = ({ children }: PropsWithChildren) => {
               </div>
             </li>
             <li className="user-block__item">
+              <a className="user-block__link" onClick={myListHandler}>My list</a>
+            </li>
+            <li className="user-block__item">
               <a className="user-block__link" onClick={signOutHandler}>Sign out</a>
             </li>
           </>
-          : <li className="user-block__item"><Link to={EAppRoute.SIGNIN} className="user-block__link">Sign in</Link></li>}
+          : <li className="user-block__item"><Link to={EAppRoute.SIGN_IN} className="user-block__link">Sign in</Link></li>}
       </ul>
     </header>
   );

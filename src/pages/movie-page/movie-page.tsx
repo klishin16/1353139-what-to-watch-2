@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { IMovie, IMovieDetail, IReview } from '../../types';
 import { api } from '../../store';
 import { useTypedSelector } from '../../hooks/useTypedSelector.ts';
-import { Footer, Header, Loader, MoviePageTabs, MoviesList } from '../../components';
+import { Footer, Header, Loader, MoviePageTabs, MoviesList, MyListButton } from '../../components';
 
 const MoviePage = () => {
   const {id} = useParams();
@@ -69,13 +69,7 @@ const MoviePage = () => {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list film-card__button" type="button" onClick={() => navigate(EAppRoute.MYLIST)}>
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                  <span className="film-card__count">9</span>
-                </button>
+                <MyListButton movieId={movie.id} />
                 { authorizationStatus === EAuthorizationStatus.AUTH && <Link to={`${EAppRoute.FILMS}/${id ?? 1}/review`} className="btn film-card__button">Add review</Link> }
               </div>
             </div>
