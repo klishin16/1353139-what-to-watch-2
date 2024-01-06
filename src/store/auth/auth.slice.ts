@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { EAuthorizationStatus } from '../constants.ts';
-import { IUser } from '../types';
+import { EAuthorizationStatus } from '../../constants.ts';
+import { IUser } from '../../types';
 
 
-interface IAuthSliceState {
+export interface IAuthSliceState {
   authorizationStatus: EAuthorizationStatus;
   user: IUser | null;
 }

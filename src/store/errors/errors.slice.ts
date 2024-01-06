@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface IErrorsSliceState {
+export interface IErrorsSliceState {
   error: string | null;
 }
 

@@ -2,12 +2,13 @@ import React, { PropsWithChildren } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { EAppRoute, EAuthorizationStatus } from '../../constants.ts';
 import { useAppDispatch, useTypedSelector } from '../../hooks/useTypedSelector.ts';
-import { logoutAction } from '../../store/api-actions.ts';
+import { logoutAction } from '../../store/api-actions/api-actions.ts';
+import { getAuthorizationState } from '../../store/auth/auth.selectors.ts';
 
 export const Header = ({ children }: PropsWithChildren) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { authorizationStatus, user } = useTypedSelector((state) => state.auth);
+  const { authorizationStatus, user } = useTypedSelector(getAuthorizationState);
 
   const signOutHandler = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();

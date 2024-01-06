@@ -26,7 +26,7 @@ const MovieCard = React.memo(({ movie }: IMovieCardProps) => {
   };
 
   return (
-    <article className="small-film-card catalog__films-card" onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler}>
+    <article className="small-film-card catalog__films-card" onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler} data-testid={'movie-card'}>
       <div className="small-film-card__image">
         <VideoPlayer src={movie.previewVideoLink} poster={movie.previewImage} muted playPreview={playPreview} height={175} width={280} />
       </div>

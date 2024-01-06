@@ -131,9 +131,9 @@ export const MoviePageTabs = ({ movie, reviews, reviewsStatistics }: IMoviePageT
   return (
     <div className="film-card__desc">
       <nav className="film-nav film-card__nav">
-        <ul className="film-nav__list">
+        <ul className="film-nav__list" data-testid={'tabs-container'}>
           { Object.values(EMoviePageTab).map((tab) => (
-            <li key={tab} className={ `film-nav__item ${ activeTab === tab ? 'film-nav__item--active' : ''}` }>
+            <li key={tab} className={ `film-nav__item ${ activeTab === tab ? 'film-nav__item--active' : ''}` } data-testid={'tab'}>
               <a href='#' className="film-nav__link" onClick={(e) => tabLinkClickHandler(e, tab)}>{ tab }</a>
             </li>
           )) }
