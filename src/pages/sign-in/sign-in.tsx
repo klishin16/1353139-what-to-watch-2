@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAppDispatch } from '../../hooks/useTypedSelector.ts';
-import { loginAction } from '../../store/api-actions.ts';
+import { loginAction } from '../../store/api-actions/api-actions.ts';
 import { useNavigate } from 'react-router-dom';
 import { EAppRoute } from '../../constants.ts';
 import { Footer, Header } from '../../components';
@@ -30,12 +30,24 @@ const SignInPage = () => {
         <form onSubmit={ loginFormHandler } className="sign-in__form">
           <div className="sign-in__fields">
             <div className="sign-in__field">
-              <input className="sign-in__input" type="email" placeholder="Email address" name="email" id="user-email"/>
+              <input
+                className="sign-in__input"
+                type="email"
+                placeholder="Email address"
+                name="email"
+                id="user-email"
+                data-testid={'emailElement'}
+              />
               <label className="sign-in__label visually-hidden" htmlFor="email">Email address</label>
             </div>
             <div className="sign-in__field">
-              <input className="sign-in__input" type="password" placeholder="Password" name="password"
+              <input
+                className="sign-in__input"
+                type="password"
+                placeholder="Password"
+                name="password"
                 id="user-password"
+                data-testid={'passwordElement'}
               />
               <label className="sign-in__label visually-hidden" htmlFor="password">Password</label>
             </div>

@@ -1,7 +1,7 @@
 import { IGenre } from '../../types';
 import React from 'react';
 import { useAppDispatch, useTypedSelector } from '../../hooks/useTypedSelector.ts';
-import { changeGenre } from '../../store/movies.slice.ts';
+import { changeGenre } from '../../store/movies/movies.slice.ts';
 
 
 export const GenresList = () => {

@@ -3,9 +3,13 @@ import ReactDOM from 'react-dom/client';
 import App from './components/app/app.tsx';
 import { Provider } from 'react-redux';
 import { store } from './store';
-import { checkAuthAction, fetchAllMoviesAction, fetchFavoriteMoviesAction } from './store/api-actions.ts';
+import { checkAuthAction, fetchAllMoviesAction, fetchFavoriteMoviesAction } from './store/api-actions/api-actions.ts';
 import { ErrorMessage } from './components';
+import { injectStore } from './services/process-error-handle.ts';
+import HistoryRouter from './components/history-route/history-route.tsx';
+import browserHistory from './utils/browser-history.ts';
 
+injectStore(store);
 
 store.dispatch(fetchAllMoviesAction());
 store.dispatch(fetchFavoriteMoviesAction());
@@ -19,7 +23,9 @@ root.render(
   <React.StrictMode>
     <Provider store = {store}>
       <ErrorMessage />
-      <App />
+      <HistoryRouter history={browserHistory}>
+        <App />
+      </HistoryRouter>
     </Provider>
   </React.StrictMode>
 );

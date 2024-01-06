@@ -13,7 +13,7 @@ export const Loader: React.FC<ILoaderProps> = ({ isLoading, children }) => {
 
   return (
     <div className="spinner-container">
-      <div className="loading-spinner"></div>
+      <div className="loading-spinner" data-testid={'loading-spinner'}></div>
     </div>
   );
 };

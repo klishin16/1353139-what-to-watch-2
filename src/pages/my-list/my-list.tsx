@@ -1,9 +1,10 @@
 import { Footer, Header, Loader, MoviesList } from '../../components';
 import { useTypedSelector } from '../../hooks/useTypedSelector.ts';
+import { getFavoriteMovies } from '../../store/movies/movies.selectors.ts';
 
 
 const MyListPage = () => {
-  const favoriteMovies = useTypedSelector((state) => state.movies.favoriteMovies);
+  const favoriteMovies = useTypedSelector(getFavoriteMovies);
 
   if (!favoriteMovies) {
     return <Loader />;

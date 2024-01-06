@@ -1,7 +1,8 @@
 import { useAppDispatch, useTypedSelector } from '../../hooks/useTypedSelector.ts';
 import { IMovie } from '../../types';
 import { useEffect, useState } from 'react';
-import { changeMovieFavoriteStatusAction } from '../../store/api-actions.ts';
+import { changeMovieFavoriteStatusAction } from '../../store/api-actions/api-actions.ts';
+import { getMoviesState } from '../../store/movies/movies.selectors.ts';
 
 
 interface IMyListButtonProps {
@@ -10,7 +11,7 @@ interface IMyListButtonProps {
 
 export const MyListButton = ({ movieId }: IMyListButtonProps) => {
   const dispatch = useAppDispatch();
-  const { favoriteMovies, allMovies } = useTypedSelector((state) => state.movies);
+  const { favoriteMovies, allMovies } = useTypedSelector(getMoviesState);
 
   const [movie, setMovie] = useState<IMovie>();
   const [isFavoriteMovie, setIsFavoriteMovie] = useState<boolean>(false);
@@ -24,8 +25,6 @@ export const MyListButton = ({ movieId }: IMyListButtonProps) => {
       setIsFavoriteMovie(!!favoriteMovies.find((favoriteMovie) => favoriteMovie.id === movieId));
     }
   }, [movieId, favoriteMovies]);
-
-  // onClick={() => navigate(EAppRoute.MYLIST)}
 
   const buttonClickHandler = () => {
     if (movie) {

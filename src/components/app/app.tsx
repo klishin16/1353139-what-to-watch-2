@@ -1,5 +1,5 @@
 import MainPage from '../../pages/main/main-page.tsx';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { EAppRoute } from '../../constants.ts';
 import SignInPage from '../../pages/sign-in/sign-in.tsx';
 import MoviePage from '../../pages/movie-page/movie-page.tsx';
@@ -11,15 +11,18 @@ import MyListPage from '../../pages/my-list/my-list.tsx';
 import ScrollToTop from '../scroll-to-top/ScrollToTop.tsx';
 import { useTypedSelector } from '../../hooks/useTypedSelector.ts';
 import { Loader } from '../loader/loader.tsx';
+import { getMoviesIsLoading } from '../../store/movies/movies.selectors.ts';
+import { HelmetProvider } from 'react-helmet-async';
 
 
 const App = () => {
-  const isLoading = useTypedSelector((state) => state.movies.isLoading);
+  const isLoading = useTypedSelector(getMoviesIsLoading);
 
 
   return (
-    <BrowserRouter>
+    <HelmetProvider>
       <ScrollToTop/>
+
       <Routes>
         <Route
           index
@@ -59,7 +62,7 @@ const App = () => {
           element={ <NotFoundPage/> }
         />
       </Routes>
-    </BrowserRouter>
+    </HelmetProvider>
   );
 };
 

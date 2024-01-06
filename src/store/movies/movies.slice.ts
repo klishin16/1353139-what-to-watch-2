@@ -1,9 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IGenre, IMovie } from '../types';
-import { MOVIES_BY_PAGE } from '../constants.ts';
-import { changeMovieFavoriteStatusAction, fetchAllMoviesAction } from './api-actions.ts';
+import { IGenre, IMovie } from '../../types';
+import { MOVIES_BY_PAGE } from '../../constants.ts';
+import { changeMovieFavoriteStatusAction, fetchAllMoviesAction } from '../api-actions/api-actions.ts';
+import { getMoviesGenres } from '../../utils/get-movies-genres/get-movies-genres.ts';
 
-interface IMoviesSliceState {
+export interface IMoviesSliceState {
   genres: IGenre[];
   selectedGenre: IGenre;
   allMovies: IMovie[];
@@ -53,20 +54,17 @@ export const moviesSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllMoviesAction.fulfilled, (state, action) => {
-        state.genres = [{id: -1, title: 'All genres'}].concat(
-          Array.from(action.payload.reduce((acc, film) => acc.add(film.genre), new Set<string>()))
-            .map((t, index) => ({
-              id: index,
-              title: t
-            })));
+        state.genres = getMoviesGenres(action.payload);
       })
       .addCase(changeMovieFavoriteStatusAction.fulfilled, (state, action) => {
-        if (state.favoriteMovies) {
-          if (action.payload.status) {
-            state.favoriteMovies.push(action.payload.movie);
-          } else {
-            state.favoriteMovies = state.favoriteMovies.filter((favoriteMovie) => favoriteMovie.id !== action.payload.movie.id);
-          }
+        if (!state.favoriteMovies) {
+          state.favoriteMovies = [];
+        }
+
+        if (action.payload.status) {
+          state.favoriteMovies.push(action.payload.movie);
+        } else {
+          state.favoriteMovies = state.favoriteMovies.filter((favoriteMovie) => favoriteMovie.id !== action.payload.movie.id);
         }
       });
   }

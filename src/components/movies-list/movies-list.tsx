@@ -6,7 +6,7 @@ interface IMoviesListProps {
 }
 
 export const MoviesList = ({ movies }: IMoviesListProps) => (
-  <div className="catalog__films-list">
+  <div className="catalog__films-list" data-testid={'movies-list'}>
     { movies.map((movie) => (
       <MovieCard key={movie.id} movie={movie} />
     )) }

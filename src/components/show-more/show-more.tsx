@@ -1,5 +1,5 @@
 import { useAppDispatch } from '../../hooks/useTypedSelector.ts';
-import { showMoreMovies } from '../../store/movies.slice.ts';
+import { showMoreMovies } from '../../store/movies/movies.slice.ts';
 
 export const ShowMore = () => {
   const dispatch = useAppDispatch();

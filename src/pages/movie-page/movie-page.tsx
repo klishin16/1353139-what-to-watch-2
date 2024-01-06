@@ -5,6 +5,7 @@ import { IMovie, IMovieDetail, IReview } from '../../types';
 import { api } from '../../store';
 import { useTypedSelector } from '../../hooks/useTypedSelector.ts';
 import { Footer, Header, Loader, MoviePageTabs, MoviesList, MyListButton } from '../../components';
+import { getAuthorizationStatus } from '../../store/auth/auth.selectors.ts';
 
 const MoviePage = () => {
   const {id} = useParams();
@@ -14,7 +15,7 @@ const MoviePage = () => {
   const [reviews, setReviews] = useState<IReview[]>();
   const [similarMovies, setSimilarMovies] = useState<IMovie[]>();
 
-  const authorizationStatus = useTypedSelector((state) => state.auth.authorizationStatus);
+  const authorizationStatus = useTypedSelector(getAuthorizationStatus);
 
   useEffect(() => {
     if (id && navigate) {

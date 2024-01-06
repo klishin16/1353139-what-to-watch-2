@@ -22,7 +22,7 @@ const MainPage = () => {
 
   return (
     <React.Fragment>
-      <section className="film-card">
+      <section className="film-card" data-testid={'promo-card'}>
         <div className="film-card__bg">
           <img src={promo?.backgroundImage} alt={promo?.name} />
         </div>
