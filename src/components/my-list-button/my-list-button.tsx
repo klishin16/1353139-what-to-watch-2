@@ -1,4 +1,4 @@
-import { useAppDispatch, useTypedSelector } from '../../hooks/useTypedSelector.ts';
+import { useAppDispatch, useTypedSelector } from '../../hooks/use-typed-selector.ts';
 import { IMovie } from '../../types';
 import { useEffect, useState } from 'react';
 import { changeMovieFavoriteStatusAction } from '../../store/api-actions/api-actions.ts';

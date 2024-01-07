@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { EAPIRoute, EAppRoute } from '../../constants.ts';
 import { useEffect, useRef, useState } from 'react';
-import { useVideoPlayer } from '../../hooks/useVideoPlayer.tsx';
+import { useVideoPlayer } from '../../hooks/use-video-player.tsx';
 import { api } from '../../store';
 import { IMovieDetail } from '../../types';
 import { Loader } from '../../components';

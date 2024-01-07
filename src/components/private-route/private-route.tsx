@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom';
 import { EAppRoute, EAuthorizationStatus } from '../../constants.ts';
-import { useTypedSelector } from '../../hooks/useTypedSelector.ts';
+import { useTypedSelector } from '../../hooks/use-typed-selector.ts';
 import { Loader } from '../loader/loader.tsx';
 import { getAuthorizationStatus } from '../../store/auth/auth.selectors.ts';
 

@@ -80,13 +80,6 @@ export const useVideoPlayer = (
     }
   };
 
-  const toggleMute = () => {
-    setPlayerState((prevPlayerState) => ({
-      ...prevPlayerState,
-      isMuted: !prevPlayerState.isMuted,
-    }));
-  };
-
   useEffect(() => {
     if (videoElementRef?.current) {
       videoElementRef.current.muted = playerState.isMuted;
@@ -144,7 +137,6 @@ export const useVideoPlayer = (
     handleOnTimeUpdate,
     handleVideoProgress,
     handleVideoSpeed,
-    toggleMute,
     toggleFullscreen,
   };
 };

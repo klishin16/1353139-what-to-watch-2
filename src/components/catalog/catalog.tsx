@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { GenresList } from '../genres-list/genres-list.tsx';
 import { MoviesList } from '../movies-list/movies-list.tsx';
 import { ShowMore } from '../show-more/show-more.tsx';
-import { useAppDispatch, useTypedSelector } from '../../hooks/useTypedSelector.ts';
+import { useAppDispatch, useTypedSelector } from '../../hooks/use-typed-selector.ts';
 import { getMovies } from '../../store/movies/movies.slice.ts';
 import { getMoviesState } from '../../store/movies/movies.selectors.ts';
 

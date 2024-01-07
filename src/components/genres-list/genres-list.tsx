@@ -1,6 +1,6 @@
 import { IGenre } from '../../types';
 import React from 'react';
-import { useAppDispatch, useTypedSelector } from '../../hooks/useTypedSelector.ts';
+import { useAppDispatch, useTypedSelector } from '../../hooks/use-typed-selector.ts';
 import { changeGenre } from '../../store/movies/movies.slice.ts';
 
 

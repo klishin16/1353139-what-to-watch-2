@@ -21,7 +21,7 @@ const VideoPlayer = ({ src, poster, muted, playPreview, height, width }: IVideoP
   }, [playPreview]);
 
   return (
-    <video ref={videoRef} src={src} poster={poster} muted={muted} height={height} width={width} autoPlay={false}></video>
+    <video ref={videoRef} src={src} poster={poster} muted={muted} height={height} width={width} autoPlay={false} data-testid={'video'}></video>
   );
 };
 

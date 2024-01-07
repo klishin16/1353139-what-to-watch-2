@@ -1,7 +1,7 @@
 import React, { PropsWithChildren } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { EAppRoute, EAuthorizationStatus } from '../../constants.ts';
-import { useAppDispatch, useTypedSelector } from '../../hooks/useTypedSelector.ts';
+import { useAppDispatch, useTypedSelector } from '../../hooks/use-typed-selector.ts';
 import { logoutAction } from '../../store/api-actions/api-actions.ts';
 import { getAuthorizationState } from '../../store/auth/auth.selectors.ts';
 
