@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAppDispatch } from '../../hooks/useTypedSelector.ts';
+import { useAppDispatch } from '../../hooks/use-typed-selector.ts';
 import { loginAction } from '../../store/api-actions/api-actions.ts';
 import { useNavigate } from 'react-router-dom';
 import { EAppRoute } from '../../constants.ts';

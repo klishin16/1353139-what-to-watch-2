@@ -1,5 +1,5 @@
 import { Footer, Header, Loader, MoviesList } from '../../components';
-import { useTypedSelector } from '../../hooks/useTypedSelector.ts';
+import { useTypedSelector } from '../../hooks/use-typed-selector.ts';
 import { getFavoriteMovies } from '../../store/movies/movies.selectors.ts';
 
 

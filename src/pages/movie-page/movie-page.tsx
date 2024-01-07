@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { IMovie, IMovieDetail, IReview } from '../../types';
 import { api } from '../../store';
-import { useTypedSelector } from '../../hooks/useTypedSelector.ts';
+import { useTypedSelector } from '../../hooks/use-typed-selector.ts';
 import { Footer, Header, Loader, MoviePageTabs, MoviesList, MyListButton } from '../../components';
 import { getAuthorizationStatus } from '../../store/auth/auth.selectors.ts';
 
