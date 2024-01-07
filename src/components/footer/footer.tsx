@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
-import { EAppRoute } from '../../constants.ts';
+import { AppRoute } from '../../constants.ts';
 
 export const Footer = () => (
   <footer className="page-footer">
     <div className="logo">
-      <Link to={EAppRoute.MAIN} className="logo__link logo__link--light">
+      <Link to={AppRoute.MAIN} className="logo__link logo__link--light">
         <span className="logo__letter logo__letter--1">W</span>
         <span className="logo__letter logo__letter--2">T</span>
         <span className="logo__letter logo__letter--3">W</span>

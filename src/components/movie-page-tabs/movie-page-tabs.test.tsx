@@ -2,7 +2,7 @@ import { describe, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { MoviePageTabs } from './movie-page-tabs.tsx';
 import { makeFakeDetailMovie, makeFakeReviews } from '../../utils/mocks.ts';
-import { IReviewStatistics } from '../../types';
+import { ReviewStatistics } from '../../types';
 
 describe('Component Movies page tabs', () => {
   it('Should render correctly', () => {
@@ -12,7 +12,7 @@ describe('Component Movies page tabs', () => {
 
     const movie = makeFakeDetailMovie();
     const reviews = makeFakeReviews();
-    const reviewsStatistics: IReviewStatistics = {
+    const reviewsStatistics: ReviewStatistics = {
       totalReviews: 5,
       averageRating: 7.0
     };

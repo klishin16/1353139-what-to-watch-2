@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 
-interface IPlayerState {
+interface PlayerState {
   isPlaying: boolean;
   isWaiting: boolean;
   progress: number;
@@ -11,7 +11,7 @@ interface IPlayerState {
   timeLeft: number;
 }
 
-const initialState: IPlayerState = {
+const initialState: PlayerState = {
   isPlaying: false,
   isWaiting: false,
   progress: 0,
@@ -25,7 +25,7 @@ export const useVideoPlayer = (
   videoElementRef: React.RefObject<HTMLVideoElement>,
   playerElementRef: React.RefObject<HTMLDivElement>
 ) => {
-  const [playerState, setPlayerState] = useState<IPlayerState>(initialState);
+  const [playerState, setPlayerState] = useState<PlayerState>(initialState);
 
   const togglePlay = () => {
     setPlayerState((prevPlayerState) => ({

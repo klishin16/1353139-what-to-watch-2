@@ -1,5 +1,5 @@
 import { Navigate } from 'react-router-dom';
-import { EAppRoute, EAuthorizationStatus } from '../../constants.ts';
+import { AppRoute, EAuthorizationStatus } from '../../constants.ts';
 import { useTypedSelector } from '../../hooks/use-typed-selector.ts';
 import { Loader } from '../loader/loader.tsx';
 import { getAuthorizationStatus } from '../../store/auth/auth.selectors.ts';
@@ -19,7 +19,7 @@ function PrivateRoute(props: PrivateRouteProps): JSX.Element {
   return (
     authorizationStatus === EAuthorizationStatus.AUTH
       ? children
-      : <Navigate to={EAppRoute.SIGN_IN} />
+      : <Navigate to={AppRoute.SIGN_IN} />
   );
 }
 

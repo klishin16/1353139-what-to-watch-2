@@ -1,7 +1,7 @@
-import { EAPIRoute, EAppRoute, EAuthorizationStatus } from '../../constants.ts';
+import { EAPIRoute, AppRoute, EAuthorizationStatus } from '../../constants.ts';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { IMovie, IMovieDetail, IReview } from '../../types';
+import { Movie, MovieDetail, Review } from '../../types';
 import { api } from '../../store';
 import { useTypedSelector } from '../../hooks/use-typed-selector.ts';
 import { Footer, Header, Loader, MoviePageTabs, MoviesList, MyListButton } from '../../components';
@@ -11,28 +11,28 @@ const MoviePage = () => {
   const {id} = useParams();
   const navigate = useNavigate();
 
-  const [movie, setMovie] = useState<IMovieDetail>();
-  const [reviews, setReviews] = useState<IReview[]>();
-  const [similarMovies, setSimilarMovies] = useState<IMovie[]>();
+  const [movie, setMovie] = useState<MovieDetail>();
+  const [reviews, setReviews] = useState<Review[]>();
+  const [similarMovies, setSimilarMovies] = useState<Movie[]>();
 
   const authorizationStatus = useTypedSelector(getAuthorizationStatus);
 
   useEffect(() => {
     if (id && navigate) {
-      api.get<IMovieDetail>(`${EAPIRoute.MOVIES}/${id}`)
+      api.get<MovieDetail>(`${EAPIRoute.MOVIES}/${id}`)
         .then(({ data }) => {
           setMovie(data);
         })
         .catch(() => {
-          navigate(EAppRoute.NOTFOUND);
+          navigate(AppRoute.NOTFOUND);
         });
 
-      api.get<IReview[]>(`${EAPIRoute.COMMENTS}/${id}`)
+      api.get<Review[]>(`${EAPIRoute.COMMENTS}/${id}`)
         .then(({ data }) => {
           setReviews(data);
         });
 
-      api.get<IMovie[]>(`${EAPIRoute.MOVIES }/${ id }/similar`)
+      api.get<Movie[]>(`${EAPIRoute.MOVIES }/${ id }/similar`)
         .then(({ data }) => {
           setSimilarMovies(data);
         });
@@ -64,14 +64,14 @@ const MoviePage = () => {
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button" onClick={() => navigate(`${EAppRoute.PLAYER }/${ movie.id}`)}>
+                <button className="btn btn--play film-card__button" type="button" onClick={() => navigate(`${AppRoute.PLAYER }/${ movie.id}`)}>
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
                 </button>
                 <MyListButton movieId={movie.id} />
-                { authorizationStatus === EAuthorizationStatus.AUTH && <Link to={`${EAppRoute.FILMS}/${id ?? 1}/review`} className="btn film-card__button">Add review</Link> }
+                { authorizationStatus === EAuthorizationStatus.AUTH && <Link to={`${AppRoute.FILMS}/${id ?? 1}/review`} className="btn film-card__button">Add review</Link> }
               </div>
             </div>
           </div>

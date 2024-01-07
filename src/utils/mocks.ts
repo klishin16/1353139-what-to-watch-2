@@ -1,9 +1,9 @@
-import { IGenre, IMovie, IMovieDetail, IReview, IState } from '../types';
+import { Genre, Movie, MovieDetail, Review, State } from '../types';
 import * as faker from 'faker';
 import { Action } from '@reduxjs/toolkit';
 import { EAuthorizationStatus } from '../constants.ts';
 
-export const makeFakeMovie = (): IMovie => ({
+export const makeFakeMovie = (): Movie => ({
   id: faker.datatype.string(5),
   name: faker.name.firstName(),
   genre: faker.music.genre(),
@@ -11,7 +11,7 @@ export const makeFakeMovie = (): IMovie => ({
   previewVideoLink: faker.internet.url(),
 });
 
-export const makeFakeDetailMovie = (): IMovieDetail => ({
+export const makeFakeDetailMovie = (): MovieDetail => ({
   id: faker.datatype.string(5),
   name: faker.name.firstName(),
   genre: faker.music.genre(),
@@ -29,7 +29,7 @@ export const makeFakeDetailMovie = (): IMovieDetail => ({
 
 export const makeFakeMovies = (n = 5) => new Array(n).fill(null).map(() => makeFakeMovie());
 
-export const makeFakeReview = (): IReview => ({
+export const makeFakeReview = (): Review => ({
   id: faker.datatype.string(5),
   rating: faker.datatype.number(10),
   comment: faker.datatype.string(50),
@@ -39,15 +39,15 @@ export const makeFakeReview = (): IReview => ({
 
 export const makeFakeReviews = (n = 5) => new Array(n).fill(null).map(() => makeFakeReview());
 
-export const makeFakeGenre = (): IGenre => ({
+export const makeFakeGenre = (): Genre => ({
   id: faker.datatype.number(),
   title: faker.name.title()
 });
 
 export const makeFakeGenres = (n = 5) => new Array(n).fill(null).map(() => makeFakeGenre());
 
-export const makeFakeStore = (initialState?: Partial<IState>): IState => ({
-  auth: { authorizationStatus: EAuthorizationStatus.NOAUTH, user: null },
+export const makeFakeStore = (initialState?: Partial<State>): State => ({
+  auth: { authorizationStatus: EAuthorizationStatus.NO_AUTH, user: null },
   movies: {
     movies: [],
     genres: makeFakeGenres(),

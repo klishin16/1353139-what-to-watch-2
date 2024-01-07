@@ -1,3 +1,3 @@
-import { IState } from '../../types';
+import { State } from '../../types';
 
-export const getError = (state: Pick<IState, 'errors'>) => state.errors.error;
+export const getError = (state: Pick<State, 'errors'>) => state.errors.error;

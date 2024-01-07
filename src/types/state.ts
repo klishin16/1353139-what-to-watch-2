@@ -1,9 +1,9 @@
 import {store} from '../store';
 import { Action, ThunkDispatch } from '@reduxjs/toolkit';
-import { createAPI } from '../services/api.ts';
+import { createAPI } from '../services';
 
-export type IState = ReturnType<typeof store.getState>;
+export type State = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;
 
-export type AppThunkDispatch = ThunkDispatch<IState, ReturnType<typeof createAPI>, Action>;
+export type AppThunkDispatch = ThunkDispatch<State, ReturnType<typeof createAPI>, Action>;

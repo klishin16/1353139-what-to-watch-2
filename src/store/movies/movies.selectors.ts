@@ -1,7 +1,7 @@
-import { IState } from '../../types';
+import { State } from '../../types';
 
-export const getMoviesIsLoading = (state: Pick<IState, 'movies'>) => state.movies.isLoading;
+export const getMoviesIsLoading = (state: Pick<State, 'movies'>) => state.movies.isLoading;
 
-export const getFavoriteMovies = (state: Pick<IState, 'movies'>) => state.movies.favoriteMovies;
+export const getFavoriteMovies = (state: Pick<State, 'movies'>) => state.movies.favoriteMovies;
 
-export const getMoviesState = (state: Pick<IState, 'movies'>) => state.movies;
+export const getMoviesState = (state: Pick<State, 'movies'>) => state.movies;

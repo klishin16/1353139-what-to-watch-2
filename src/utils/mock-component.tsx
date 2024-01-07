@@ -4,7 +4,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { configureMockStore, MockStore } from '@jedmao/redux-mock-store';
 import MockAdapter from 'axios-mock-adapter';
 import { createAPI } from '../services';
-import { AppThunkDispatch, IState } from '../types';
+import { AppThunkDispatch, State } from '../types';
 import thunk from 'redux-thunk';
 import { Action } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
@@ -29,12 +29,12 @@ type ComponentWithMockStore = {
 
 export function withStore(
   component: JSX.Element,
-  initialState: Partial<IState> = {},
+  initialState: Partial<State> = {},
 ): ComponentWithMockStore {
   const axios = createAPI();
   const mockAxiosAdapter = new MockAdapter(axios);
   const middleware = [thunk.withExtraArgument(axios)];
-  const mockStoreCreator = configureMockStore<IState, Action<string>, AppThunkDispatch>(middleware);
+  const mockStoreCreator = configureMockStore<State, Action<string>, AppThunkDispatch>(middleware);
   const mockStore = mockStoreCreator(initialState);
 
   return ({

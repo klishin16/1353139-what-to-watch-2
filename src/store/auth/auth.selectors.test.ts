@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { IAuthSliceState } from './auth.slice.ts';
+import { AuthSliceState } from './auth.slice.ts';
 import { EAuthorizationStatus } from '../../constants.ts';
 import { getAuthorizationState, getAuthorizationStatus, getUser } from './auth.selectors.ts';
 
 describe('Auth slice selectors', () => {
-  const authState: IAuthSliceState = {
+  const authState: AuthSliceState = {
     authorizationStatus: EAuthorizationStatus.AUTH,
     user: null
   };

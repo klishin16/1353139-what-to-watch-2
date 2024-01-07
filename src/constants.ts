@@ -1,7 +1,7 @@
-export enum EAppRoute {
+export enum AppRoute {
   MAIN = '/',
   SIGN_IN = '/login',
-  MY_LIST = '/my-list',
+  MY_LIST = '/mylist',
   FILM = '/films/:id',
   FILMS = '/films',
   ADD_REVIEW = '/films/:id/review',
@@ -10,9 +10,9 @@ export enum EAppRoute {
 }
 
 export enum EAuthorizationStatus {
-  AUTH = 'AUTH',
-  NOAUTH = 'NO_AUTH',
-  UNKNOWN= 'UNKNOWN',
+  AUTH = 'auth',
+  NO_AUTH = 'no_auth',
+  UNKNOWN= 'unknown',
 }
 
 export const MOVIES_BY_PAGE = 8;
