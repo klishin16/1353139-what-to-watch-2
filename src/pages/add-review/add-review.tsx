@@ -1,19 +1,19 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { api } from '../../store';
-import { IMovieDetail } from '../../types';
+import { MovieDetail } from '../../types';
 import { EAPIRoute } from '../../constants.ts';
 import { AddReviewForm, Header, Loader } from '../../components';
 
 
 const AddReviewPage = () => {
   const {id} = useParams();
-  const [movie, setMovie] = useState<IMovieDetail>();
+  const [movie, setMovie] = useState<MovieDetail>();
 
 
   useEffect(() => {
     if (id) {
-      api.get<IMovieDetail>(`${EAPIRoute.MOVIES}/${id}`)
+      api.get<MovieDetail>(`${EAPIRoute.MOVIES}/${id}`)
         .then(({ data }) => {
           setMovie(data);
         });

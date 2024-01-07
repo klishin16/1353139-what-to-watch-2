@@ -1,25 +1,43 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useAppDispatch } from '../../hooks/use-typed-selector.ts';
-import { loginAction } from '../../store/api-actions/api-actions.ts';
+import { clearErrorAction, loginAction } from '../../store/api-actions/api-actions.ts';
 import { useNavigate } from 'react-router-dom';
-import { EAppRoute } from '../../constants.ts';
+import { AppRoute } from '../../constants.ts';
 import { Footer, Header } from '../../components';
+import { setError } from '../../store/errors/errors.slice.ts';
 
 const SignInPage = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const loginFormHandler = (event: React.FormEvent<HTMLFormElement>) => {
+
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.target as HTMLFormElement);
-    dispatch(loginAction({
-      email: (data.get('email') as string).replace(/\s/g, '') || '',
-      password: (data.get('password') as string).replace(/\s/g, '') || ''
-    }))
-      .unwrap()
-      .then(() => {
-        /** Переходим на главную страницу при успешной авторизации */
-        navigate(EAppRoute.MAIN);
-      });
+
+    if (emailRef.current !== null && passwordRef.current !== null) {
+      if (/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/i.test(passwordRef.current.value)) {
+        dispatch(loginAction({
+          email: emailRef.current.value,
+          password: passwordRef.current.value
+        }))
+          .unwrap()
+          .then(() => {
+            /** Переходим на главную страницу при успешной авторизации */
+            navigate(AppRoute.MAIN);
+          })
+          .catch(() => {
+            dispatch(setError('Server error'));
+            dispatch(clearErrorAction());
+          });
+      } else {
+        dispatch(setError('Password incorrect'));
+        dispatch(clearErrorAction());
+      }
+    } else {
+      dispatch(setError('The required fields are not filled in'));
+      dispatch(clearErrorAction());
+    }
   };
 
   return (
@@ -27,11 +45,12 @@ const SignInPage = () => {
       <Header />
 
       <div className="sign-in user-page__content">
-        <form onSubmit={ loginFormHandler } className="sign-in__form">
+        <form onSubmit={ handleSubmit } className="sign-in__form">
           <div className="sign-in__fields">
             <div className="sign-in__field">
               <input
                 className="sign-in__input"
+                ref={emailRef}
                 type="email"
                 placeholder="Email address"
                 name="email"
@@ -43,6 +62,7 @@ const SignInPage = () => {
             <div className="sign-in__field">
               <input
                 className="sign-in__input"
+                ref={passwordRef}
                 type="password"
                 placeholder="Password"
                 name="password"

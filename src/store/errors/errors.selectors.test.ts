@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { IErrorsSliceState } from './errors.slice.ts';
+import { ErrorsSliceState } from './errors.slice.ts';
 import { getError } from './errors.selectors.ts';
 
 describe('Errors slice selectors', () => {
   const error = 'Test error';
 
-  const errorsState: IErrorsSliceState = {
+  const errorsState: ErrorsSliceState = {
     error
   };
 

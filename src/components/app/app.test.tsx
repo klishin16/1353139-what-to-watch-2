@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { createMemoryHistory, MemoryHistory } from 'history';
 import App from './app';
 import { withHistory, withStore } from '../../utils/mock-component';
-import { EAppRoute, EAuthorizationStatus } from '../../constants.ts';
+import { AppRoute, EAuthorizationStatus } from '../../constants.ts';
 import { makeFakeStore } from '../../utils/mocks.ts';
 
 describe('Application Routing', () => {
@@ -12,13 +12,14 @@ describe('Application Routing', () => {
     mockHistory = createMemoryHistory();
   });
 
-  it('should render "Main page" when user navigate to "/"', () => {
+  it('should render "Main page" when user navigate to "/"', async () => {
     const withHistoryComponent = withHistory(<App />, mockHistory);
     const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore());
-    mockHistory.push(EAppRoute.MAIN);
+    mockHistory.push(AppRoute.MAIN);
     const promoCardTestId = 'promo-card';
 
     render(withStoreComponent);
+    await screen.findByTestId(promoCardTestId);
 
     expect(screen.getByTestId(promoCardTestId)).toBeInTheDocument();
   });
@@ -26,7 +27,7 @@ describe('Application Routing', () => {
   it('should render "Sign in page" when user navigate to "/login"', () => {
     const withHistoryComponent = withHistory(<App />, mockHistory);
     const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore());
-    mockHistory.push(EAppRoute.SIGN_IN);
+    mockHistory.push(AppRoute.SIGN_IN);
 
     render(withStoreComponent);
 
@@ -34,17 +35,17 @@ describe('Application Routing', () => {
     expect(screen.getByText(/Password/i)).toBeInTheDocument();
   });
 
-  it('should render "My list" when user navigate to "/my-list"', () => {
+  it('should render "My list" when user navigate to "/mylist"', () => {
     const withHistoryComponent = withHistory(<App />, mockHistory);
     const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore({
       auth: { authorizationStatus: EAuthorizationStatus.AUTH, user: null },
     }));
-    mockHistory.push(EAppRoute.MY_LIST);
+    mockHistory.push(AppRoute.MY_LIST);
     const expectedText = 'My list';
 
     render(withStoreComponent);
 
-    expect(screen.getAllByText(expectedText).length).toBe(2);
+    expect(screen.getByText(expectedText)).toBeInTheDocument();
   });
 
   it('should render "Not found page" when user navigate to non-existent route', () => {

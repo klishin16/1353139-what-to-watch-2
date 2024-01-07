@@ -1,6 +1,6 @@
 import MainPage from '../../pages/main/main-page.tsx';
 import { Route, Routes } from 'react-router-dom';
-import { EAppRoute } from '../../constants.ts';
+import { AppRoute } from '../../constants.ts';
 import SignInPage from '../../pages/sign-in/sign-in.tsx';
 import MoviePage from '../../pages/movie-page/movie-page.tsx';
 import AddReviewPage from '../../pages/add-review/add-review.tsx';
@@ -26,7 +26,7 @@ const App = () => {
       <Routes>
         <Route
           index
-          path={ EAppRoute.MAIN }
+          path={ AppRoute.MAIN }
           element={
             <Loader isLoading={isLoading} >
               <MainPage />
@@ -34,11 +34,11 @@ const App = () => {
           }
         />
         <Route
-          path={ EAppRoute.SIGN_IN }
+          path={ AppRoute.SIGN_IN }
           element={ <SignInPage/> }
         />
         <Route
-          path={ EAppRoute.MY_LIST }
+          path={ AppRoute.MY_LIST }
           element={
             <PrivateRoute>
               <MyListPage />
@@ -46,19 +46,23 @@ const App = () => {
           }
         />
         <Route
-          path={ EAppRoute.FILM }
+          path={ AppRoute.FILM }
           element={ <MoviePage/> }
         />
         <Route
-          path={ EAppRoute.ADD_REVIEW }
-          element={ <AddReviewPage/> }
+          path={ AppRoute.ADD_REVIEW }
+          element={
+            <PrivateRoute>
+              <AddReviewPage />
+            </PrivateRoute>
+          }
         />
         <Route
-          path={ `${EAppRoute.PLAYER }/:id` }
+          path={ `${AppRoute.PLAYER }/:id` }
           element={ <PlayerPage/> }
         />
         <Route
-          path={ EAppRoute.NOTFOUND }
+          path={ AppRoute.NOTFOUND }
           element={ <NotFoundPage/> }
         />
       </Routes>

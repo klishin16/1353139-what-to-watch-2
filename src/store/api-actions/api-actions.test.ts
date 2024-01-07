@@ -3,7 +3,7 @@ import { createAPI } from '../../services';
 import MockAdapter from 'axios-mock-adapter';
 import thunk from 'redux-thunk';
 import { configureMockStore } from '@jedmao/redux-mock-store';
-import { AppThunkDispatch, IAuthPayload, IState } from '../../types';
+import { AppThunkDispatch, AuthPayload, State } from '../../types';
 import { Action } from '@reduxjs/toolkit';
 import {
   changeMovieFavoriteStatusAction,
@@ -23,7 +23,7 @@ describe('Async actions', () => {
   const axios = createAPI();
   const mockAxiosAdapter = new MockAdapter(axios);
   const middleware = [thunk.withExtraArgument(axios)];
-  const mockStoreCreator = configureMockStore<IState, Action<string>, AppThunkDispatch>(middleware);
+  const mockStoreCreator = configureMockStore<State, Action<string>, AppThunkDispatch>(middleware);
   let store: ReturnType<typeof mockStoreCreator>;
 
   beforeEach(() => {
@@ -61,7 +61,7 @@ describe('Async actions', () => {
 
   describe('Login action', () => {
     it('should dispatch "loginAction.pending", "loginAction.fulfilled" when server response 200', async () => {
-      const fakeUser: IAuthPayload = {email: 'test@test.ru', password: '123456'};
+      const fakeUser: AuthPayload = {email: 'test@test.ru', password: '123456'};
       const fakeServerReplay = {token: 'secret'};
       mockAxiosAdapter.onPost(EAPIRoute.LOGIN).reply(200, fakeServerReplay);
 
@@ -77,7 +77,7 @@ describe('Async actions', () => {
     });
 
     it('should call "saveToken" once with the received token', async () => {
-      const fakeUser: IAuthPayload = {email: 'test@test.ru', password: '123456'};
+      const fakeUser: AuthPayload = {email: 'test@test.ru', password: '123456'};
       const fakeServerReplay = { token: 'secret' };
       mockAxiosAdapter.onPost(EAPIRoute.LOGIN).reply(200, fakeServerReplay);
       const mockSaveToken = vi.spyOn(tokenStorage, 'saveToken');

@@ -1,11 +1,11 @@
 import { describe, expect } from 'vitest';
-import { IMovie } from '../../types';
+import { Movie } from '../../types';
 import { makeFakeMovie } from '../mocks.ts';
 import { getMoviesGenres } from './get-movies-genres.ts';
 
 describe('Function: getMoviesGenres', () => {
   it('should return genres', () => {
-    const movies: IMovie[] = [
+    const movies: Movie[] = [
       {
         ...makeFakeMovie(),
         genre: 'Comedy'
@@ -22,7 +22,7 @@ describe('Function: getMoviesGenres', () => {
   });
 
   it('should return genres without duplicates', () => {
-    const movies: IMovie[] = [
+    const movies: Movie[] = [
       {
         ...makeFakeMovie(),
         genre: 'Comedy'
@@ -43,7 +43,7 @@ describe('Function: getMoviesGenres', () => {
   });
 
   it('should return "All genres"', () => {
-    const movies: IMovie[] = [];
+    const movies: Movie[] = [];
 
     const result = getMoviesGenres(movies);
 

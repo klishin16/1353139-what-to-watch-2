@@ -1,8 +1,8 @@
-import { IMoviesSliceState } from './movies.slice.ts';
+import { MoviesSliceState } from './movies.slice.ts';
 import { getFavoriteMovies, getMoviesIsLoading, getMoviesState } from './movies.selectors.ts';
 
 describe('Movies slice selectors', () => {
-  const moviesState: IMoviesSliceState = {
+  const moviesState: MoviesSliceState = {
     movies: [],
     favoriteMovies: [],
     allMovies: [],

@@ -1,12 +1,12 @@
-import React, { PropsWithChildren } from 'react';
+import { PropsWithChildren } from 'react';
 import './loader.css';
 
 
-interface ILoaderProps extends PropsWithChildren {
+interface LoaderProps extends PropsWithChildren {
   isLoading?: boolean;
 }
 
-export const Loader: React.FC<ILoaderProps> = ({ isLoading, children }) => {
+export const Loader = ({ isLoading, children }: LoaderProps) => {
   if (!isLoading && children) {
     return <div>{ children }</div>;
   }

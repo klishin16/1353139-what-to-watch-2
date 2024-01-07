@@ -1,10 +1,10 @@
 import { describe, expect } from 'vitest';
-import { errorsSlice, IErrorsSliceState, setError } from './errors.slice.ts';
+import { errorsSlice, ErrorsSliceState, setError } from './errors.slice.ts';
 
 describe('Errors slice', () => {
   it('should return initial state with emply action', () => {
     const emptyAction = { type: '' };
-    const initialState: IErrorsSliceState = {
+    const initialState: ErrorsSliceState = {
       error: null
     };
 
@@ -15,7 +15,7 @@ describe('Errors slice', () => {
 
   it('should return initial state with empty action and undefined state', () => {
     const emptyAction = { type: '' };
-    const initialState: IErrorsSliceState = {
+    const initialState: ErrorsSliceState = {
       error: null
     };
 
@@ -26,10 +26,10 @@ describe('Errors slice', () => {
 
   it('should set error', () => {
     const error = 'Test error';
-    const initialState: IErrorsSliceState = {
+    const initialState: ErrorsSliceState = {
       error: null
     };
-    const expectedState: IErrorsSliceState = {
+    const expectedState: ErrorsSliceState = {
       error
     };
 
@@ -40,10 +40,10 @@ describe('Errors slice', () => {
 
   it('should set error to null', () => {
     const error = null;
-    const initialState: IErrorsSliceState = {
+    const initialState: ErrorsSliceState = {
       error: 'Test error'
     };
-    const expectedState: IErrorsSliceState = {
+    const expectedState: ErrorsSliceState = {
       error
     };
 

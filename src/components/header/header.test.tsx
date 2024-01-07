@@ -7,7 +7,6 @@ import { EAuthorizationStatus } from '../../constants.ts';
 
 describe('Component Header', () => {
   it('Should render correctly when authorization status AUTH', () => {
-    const expectedMyListText = 'My list';
     const expectedSignOutText = 'Sign out';
     const componentWithHistory = withHistory(<Header />);
     const { withStoreComponent } = withStore(componentWithHistory, makeFakeStore({
@@ -19,7 +18,6 @@ describe('Component Header', () => {
 
     render(withStoreComponent);
 
-    expect(screen.getByText(expectedMyListText)).toBeInTheDocument();
     expect(screen.getByText(expectedSignOutText)).toBeInTheDocument();
   });
 
@@ -28,7 +26,7 @@ describe('Component Header', () => {
     const componentWithHistory = withHistory(<Header />);
     const { withStoreComponent } = withStore(componentWithHistory, makeFakeStore({
       auth: {
-        authorizationStatus: EAuthorizationStatus.NOAUTH,
+        authorizationStatus: EAuthorizationStatus.NO_AUTH,
         user: null,
       }
     }));

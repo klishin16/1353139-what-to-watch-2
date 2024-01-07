@@ -1,4 +1,4 @@
-export interface IMovie {
+export interface Movie {
   id: string;
   name: string;
   previewImage: string;
@@ -6,7 +6,7 @@ export interface IMovie {
   genre: string;
 }
 
-export interface IMovieDetail extends Omit<IMovie, 'previewImage' | 'previewVideoLink'> {
+export interface MovieDetail extends Omit<Movie, 'previewImage' | 'previewVideoLink'> {
   description: string;
   director: string;
   runTime: string;
@@ -19,7 +19,7 @@ export interface IMovieDetail extends Omit<IMovie, 'previewImage' | 'previewVide
   videoLink: string;
 }
 
-export interface IMovieChangeFavoriteStatusPayload {
-  movie: IMovie;
+export interface MovieChangeFavoriteStatusPayload {
+  movie: Movie;
   status: boolean;
 }

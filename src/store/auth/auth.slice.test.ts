@@ -1,13 +1,13 @@
 import { describe, expect } from 'vitest';
-import { authSlice, IAuthSliceState, setAuthorizationStatus, setUser } from './auth.slice.ts';
+import { authSlice, AuthSliceState, setAuthorizationStatus, setUser } from './auth.slice.ts';
 import { EAuthorizationStatus } from '../../constants.ts';
-import { IUser } from '../../types';
+import { User } from '../../types';
 import * as faker from 'faker';
 
 describe('Auth slice', () => {
   it('should return initial state with emply action', () => {
     const emptyAction = { type: '' };
-    const initialState: IAuthSliceState = {
+    const initialState: AuthSliceState = {
       authorizationStatus: EAuthorizationStatus.UNKNOWN,
       user: null
     };
@@ -19,7 +19,7 @@ describe('Auth slice', () => {
 
   it('should return initial state with empty action and undefined state', () => {
     const emptyAction = { type: '' };
-    const initialState: IAuthSliceState = {
+    const initialState: AuthSliceState = {
       authorizationStatus: EAuthorizationStatus.UNKNOWN,
       user: null
     };
@@ -30,11 +30,11 @@ describe('Auth slice', () => {
   });
 
   it('should set authorization status', () => {
-    const initialState: IAuthSliceState = {
+    const initialState: AuthSliceState = {
       authorizationStatus: EAuthorizationStatus.UNKNOWN,
       user: null
     };
-    const expectedState: IAuthSliceState = {
+    const expectedState: AuthSliceState = {
       authorizationStatus: EAuthorizationStatus.AUTH,
       user: null
     };
@@ -45,17 +45,17 @@ describe('Auth slice', () => {
   });
 
   it('should set user', () => {
-    const user: IUser = {
+    const user: User = {
       id: 1,
       email: faker.internet.email(),
       token: 'abc',
       avatarUrl: faker.internet.avatar()
     };
-    const initialState: IAuthSliceState = {
+    const initialState: AuthSliceState = {
       authorizationStatus: EAuthorizationStatus.UNKNOWN,
       user: null
     };
-    const expectedState: IAuthSliceState = {
+    const expectedState: AuthSliceState = {
       authorizationStatus: EAuthorizationStatus.UNKNOWN,
       user
     };

@@ -2,7 +2,7 @@ import { describe, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { withHistory, withStore } from '../../utils/mock-component.tsx';
 import SignIn from './sign-in.tsx';
-import { IAuthSliceState } from '../../store/auth/auth.slice.ts';
+import { AuthSliceState } from '../../store/auth/auth.slice.ts';
 import { EAuthorizationStatus } from '../../constants.ts';
 import userEvent from '@testing-library/user-event';
 
@@ -11,7 +11,7 @@ describe('Page Sign in', () => {
     const emailText = 'Email address';
     const passwordText = 'Password';
     const signInText = 'Sign in';
-    const auth: IAuthSliceState = {
+    const auth: AuthSliceState = {
       user: null,
       authorizationStatus: EAuthorizationStatus.UNKNOWN
     };
@@ -30,7 +30,7 @@ describe('Page Sign in', () => {
     const passwordElementTestId = 'passwordElement';
     const expectedEmailValue = 't@test.ru';
     const expectedPasswordValue = '1234';
-    const auth: IAuthSliceState = {
+    const auth: AuthSliceState = {
       user: null,
       authorizationStatus: EAuthorizationStatus.UNKNOWN
     };

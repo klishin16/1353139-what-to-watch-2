@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-interface IVideoPlayerProps {
+interface VideoPlayerProps {
   src: string;
   poster: string;
   muted: boolean;
@@ -9,7 +9,7 @@ interface IVideoPlayerProps {
   width: number;
 }
 
-const VideoPlayer = ({ src, poster, muted, playPreview, height, width }: IVideoPlayerProps) => {
+const VideoPlayer = ({ src, poster, muted, playPreview, height, width }: VideoPlayerProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {

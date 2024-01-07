@@ -1,21 +1,21 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IGenre, IMovie } from '../../types';
+import { Genre, Movie } from '../../types';
 import { MOVIES_BY_PAGE } from '../../constants.ts';
 import { changeMovieFavoriteStatusAction, fetchAllMoviesAction } from '../api-actions/api-actions.ts';
 import { getMoviesGenres } from '../../utils/get-movies-genres/get-movies-genres.ts';
 
-export interface IMoviesSliceState {
-  genres: IGenre[];
-  selectedGenre: IGenre;
-  allMovies: IMovie[];
-  movies: IMovie[];
+export interface MoviesSliceState {
+  genres: Genre[];
+  selectedGenre: Genre;
+  allMovies: Movie[];
+  movies: Movie[];
   totalMovies: number;
   loadedMovies: number;
   isLoading: boolean;
-  favoriteMovies: IMovie[] | null;
+  favoriteMovies: Movie[] | null;
 }
 
-const initialState: IMoviesSliceState = {
+const initialState: MoviesSliceState = {
   genres: [],
   selectedGenre: {id: -1, title: 'All genres'},
   allMovies: [],
@@ -30,7 +30,7 @@ export const moviesSlice = createSlice({
   name: 'movies',
   initialState,
   reducers: {
-    changeGenre: (state, action: PayloadAction<IGenre>) => {
+    changeGenre: (state, action: PayloadAction<Genre>) => {
       state.selectedGenre = action.payload;
     },
     getMovies: (state) => {
@@ -41,13 +41,13 @@ export const moviesSlice = createSlice({
     showMoreMovies: (state) => {
       state.loadedMovies += MOVIES_BY_PAGE;
     },
-    setAllMovies: (state, action: PayloadAction<IMovie[]>) => {
+    setAllMovies: (state, action: PayloadAction<Movie[]>) => {
       state.allMovies = action.payload;
     },
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;
     },
-    setFavoriteMovies: (state, action: PayloadAction<IMovie[]>) => {
+    setFavoriteMovies: (state, action: PayloadAction<Movie[]>) => {
       state.favoriteMovies = action.payload;
     }
   },

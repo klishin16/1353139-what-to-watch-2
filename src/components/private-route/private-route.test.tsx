@@ -3,7 +3,7 @@ import { withHistory, withStore } from '../../utils/mock-component';
 import { Route, Routes } from 'react-router-dom';
 import PrivateRoute from './private-route';
 import { render, screen } from '@testing-library/react';
-import { EAppRoute, EAuthorizationStatus } from '../../constants.ts';
+import { AppRoute, EAuthorizationStatus } from '../../constants.ts';
 
 describe('Component: PrivateRoute', () => {
   let mockHistory: MemoryHistory;
@@ -13,7 +13,7 @@ describe('Component: PrivateRoute', () => {
   });
 
   beforeEach(() => {
-    mockHistory.push(EAppRoute.MY_LIST);
+    mockHistory.push(AppRoute.MY_LIST);
   });
 
   it('should render component for public route, when user not authorized', () => {
@@ -21,8 +21,8 @@ describe('Component: PrivateRoute', () => {
     const notExpectedText = 'private route';
     const preparedComponent = withHistory(
       <Routes>
-        <Route path={EAppRoute.SIGN_IN} element={<span>{expectedText}</span>} />
-        <Route path={EAppRoute.MY_LIST} element={
+        <Route path={AppRoute.SIGN_IN} element={<span>{expectedText}</span>} />
+        <Route path={AppRoute.MY_LIST} element={
           <PrivateRoute>
             <span>{notExpectedText}</span>
           </PrivateRoute>
@@ -34,7 +34,7 @@ describe('Component: PrivateRoute', () => {
     const { withStoreComponent } = withStore(preparedComponent, {
       auth: {
         user: null,
-        authorizationStatus: EAuthorizationStatus.NOAUTH
+        authorizationStatus: EAuthorizationStatus.NO_AUTH
       }
     });
 
@@ -49,8 +49,8 @@ describe('Component: PrivateRoute', () => {
     const notExpectedText = 'public route';
     const preparedComponent = withHistory(
       <Routes>
-        <Route path={EAppRoute.SIGN_IN} element={<span>{notExpectedText}</span>} />
-        <Route path={EAppRoute.MY_LIST} element={
+        <Route path={AppRoute.SIGN_IN} element={<span>{notExpectedText}</span>} />
+        <Route path={AppRoute.MY_LIST} element={
           <PrivateRoute>
             <span>{expectedText}</span>
           </PrivateRoute>

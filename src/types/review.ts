@@ -1,9 +1,9 @@
-export interface IAddReviewDto {
-  rating: number;
+export interface AddReviewDto {
+  rating?: number;
   comment: string;
 }
 
-export interface IReview {
+export interface Review {
   id: string;
   rating: number;
   comment: string;
@@ -11,7 +11,7 @@ export interface IReview {
   date: number;
 }
 
-export interface IReviewStatistics {
+export interface ReviewStatistics {
   averageRating: number;
   totalReviews: number;
 }

@@ -1,19 +1,19 @@
 import { useAppDispatch, useTypedSelector } from '../../hooks/use-typed-selector.ts';
-import { IMovie } from '../../types';
+import { Movie } from '../../types';
 import { useEffect, useState } from 'react';
 import { changeMovieFavoriteStatusAction } from '../../store/api-actions/api-actions.ts';
 import { getMoviesState } from '../../store/movies/movies.selectors.ts';
 
 
-interface IMyListButtonProps {
+interface MyListButtonProps {
   movieId: string;
 }
 
-export const MyListButton = ({ movieId }: IMyListButtonProps) => {
+export const MyListButton = ({ movieId }: MyListButtonProps) => {
   const dispatch = useAppDispatch();
   const { favoriteMovies, allMovies } = useTypedSelector(getMoviesState);
 
-  const [movie, setMovie] = useState<IMovie>();
+  const [movie, setMovie] = useState<Movie>();
   const [isFavoriteMovie, setIsFavoriteMovie] = useState<boolean>(false);
 
   useEffect(() => {
@@ -26,14 +26,14 @@ export const MyListButton = ({ movieId }: IMyListButtonProps) => {
     }
   }, [movieId, favoriteMovies]);
 
-  const buttonClickHandler = () => {
+  const handleButtonClick = () => {
     if (movie) {
       dispatch(changeMovieFavoriteStatusAction({ movie, status: !isFavoriteMovie }));
     }
   };
 
   return (
-    <button className="btn btn--list film-card__button" type="button" onClick={buttonClickHandler}>
+    <button className="btn btn--list film-card__button" type="button" onClick={handleButtonClick}>
       { isFavoriteMovie ?
         <svg viewBox="0 0 19 20" width="19" height="20">
           <use xlinkHref="#in-list"></use>

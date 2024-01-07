@@ -1,9 +1,9 @@
 import { describe, expect } from 'vitest';
-import { IGenre, IMovie } from '../../types';
+import { Genre, Movie } from '../../types';
 import * as faker from 'faker';
 import {
   changeGenre,
-  IMoviesSliceState,
+  MoviesSliceState,
   moviesSlice,
   setAllMovies,
   setFavoriteMovies,
@@ -13,7 +13,7 @@ import { makeFakeMovie, makeFakeMovies } from '../../utils/mocks.ts';
 import { changeMovieFavoriteStatusAction, fetchAllMoviesAction } from '../api-actions/api-actions.ts';
 
 describe('Movies slice', () => {
-  const baseState: IMoviesSliceState = {
+  const baseState: MoviesSliceState = {
     movies: [],
     favoriteMovies: null,
     allMovies: [],
@@ -29,7 +29,7 @@ describe('Movies slice', () => {
 
   it('should return initial state with emply action', () => {
     const emptyAction = { type: '' };
-    const initialState: IMoviesSliceState = { ...baseState };
+    const initialState: MoviesSliceState = { ...baseState };
 
     const result = moviesSlice.reducer(initialState, emptyAction);
 
@@ -38,7 +38,7 @@ describe('Movies slice', () => {
 
   it('should return initial state with empty action and undefined state', () => {
     const emptyAction = { type: '' };
-    const initialState: IMoviesSliceState = { ...baseState };
+    const initialState: MoviesSliceState = { ...baseState };
 
     const result = moviesSlice.reducer(undefined, emptyAction);
 
@@ -46,12 +46,12 @@ describe('Movies slice', () => {
   });
 
   it('should change gender', () => {
-    const genre: IGenre = {
+    const genre: Genre = {
       id: 1,
       title: faker.name.title()
     };
-    const initialState: IMoviesSliceState = { ...baseState };
-    const expectedState: IMoviesSliceState = {
+    const initialState: MoviesSliceState = { ...baseState };
+    const expectedState: MoviesSliceState = {
       ...baseState,
       selectedGenre: genre
     };
@@ -63,9 +63,9 @@ describe('Movies slice', () => {
 
   it('should set all movies', () => {
     const movies = makeFakeMovies();
-    const initialState: IMoviesSliceState = { ...baseState };
+    const initialState: MoviesSliceState = { ...baseState };
 
-    const expectedState: IMoviesSliceState = {
+    const expectedState: MoviesSliceState = {
       ...baseState,
       allMovies: movies
     };
@@ -76,9 +76,9 @@ describe('Movies slice', () => {
   });
 
   it('should set loading', () => {
-    const initialState: IMoviesSliceState = { ...baseState };
+    const initialState: MoviesSliceState = { ...baseState };
 
-    const expectedState: IMoviesSliceState = {
+    const expectedState: MoviesSliceState = {
       ...baseState,
       isLoading: false
     };
@@ -90,9 +90,9 @@ describe('Movies slice', () => {
 
   it('should set favorite movies', () => {
     const movies = makeFakeMovies();
-    const initialState: IMoviesSliceState = { ...baseState };
+    const initialState: MoviesSliceState = { ...baseState };
 
-    const expectedState: IMoviesSliceState = {
+    const expectedState: MoviesSliceState = {
       ...baseState,
       favoriteMovies: movies
     };
@@ -103,7 +103,7 @@ describe('Movies slice', () => {
   });
 
   it('should set genres when movies loaded', () => {
-    const movies: IMovie[] = [
+    const movies: Movie[] = [
       {
         ...makeFakeMovie(),
         genre: 'Comedy'
@@ -113,8 +113,8 @@ describe('Movies slice', () => {
         genre: 'Fantasy'
       }
     ];
-    const initialState: IMoviesSliceState = { ...baseState };
-    const expectedState: IMoviesSliceState = {
+    const initialState: MoviesSliceState = { ...baseState };
+    const expectedState: MoviesSliceState = {
       ...baseState,
       genres: [{ id: -1, title: 'All genres' }, { id: 0, title: 'Comedy' }, { id: 1, title: 'Fantasy' }]
     };
@@ -126,8 +126,8 @@ describe('Movies slice', () => {
 
   it('should set genres when movies loaded', () => {
     const movie = makeFakeMovie();
-    const initialState: IMoviesSliceState = { ...baseState };
-    const expectedState: IMoviesSliceState = {
+    const initialState: MoviesSliceState = { ...baseState };
+    const expectedState: MoviesSliceState = {
       ...baseState,
       favoriteMovies: [movie]
     };
