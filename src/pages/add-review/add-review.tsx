@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { api } from '../../store';
 import { MovieDetail } from '../../types';
-import { EAPIRoute } from '../../constants.ts';
+import { ApiRoute } from '../../constants.ts';
 import { AddReviewForm, Header, Loader } from '../../components';
 
 
@@ -12,12 +12,14 @@ const AddReviewPage = () => {
 
 
   useEffect(() => {
+    let isNeedSetMovie = true;
     if (id) {
-      api.get<MovieDetail>(`${EAPIRoute.MOVIES}/${id}`)
-        .then(({ data }) => {
-          setMovie(data);
-        });
+      api.get<MovieDetail>(`${ApiRoute.MOVIES}/${id}`)
+        .then(({ data }) => isNeedSetMovie && setMovie(data));
     }
+    return () => {
+      isNeedSetMovie = false;
+    };
   }, [id]);
 
   if (!movie) {

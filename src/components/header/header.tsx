@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { AppRoute, EAuthorizationStatus } from '../../constants.ts';
+import { AppRoute, AuthorizationStatus } from '../../constants.ts';
 import { useAppDispatch, useTypedSelector } from '../../hooks/use-typed-selector.ts';
 import { logoutAction } from '../../store/api-actions/api-actions.ts';
 import { getAuthorizationState } from '../../store/auth/auth.selectors.ts';
@@ -33,7 +33,7 @@ export const Header = ({ children }: PropsWithChildren) => {
       { children }
 
       <ul className="user-block">
-        { authorizationStatus === EAuthorizationStatus.AUTH ?
+        { authorizationStatus === AuthorizationStatus.AUTH ?
           <>
             <li className="user-block__item">
               <div className="user-block__avatar">

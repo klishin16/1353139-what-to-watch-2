@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { createMemoryHistory, MemoryHistory } from 'history';
 import App from './app';
 import { withHistory, withStore } from '../../utils/mock-component';
-import { AppRoute, EAuthorizationStatus } from '../../constants.ts';
+import { AppRoute, AuthorizationStatus } from '../../constants.ts';
 import { makeFakeStore } from '../../utils/mocks.ts';
 
 describe('Application Routing', () => {
@@ -38,7 +38,7 @@ describe('Application Routing', () => {
   it('should render "My list" when user navigate to "/mylist"', () => {
     const withHistoryComponent = withHistory(<App />, mockHistory);
     const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore({
-      auth: { authorizationStatus: EAuthorizationStatus.AUTH, user: null },
+      auth: { authorizationStatus: AuthorizationStatus.AUTH, user: null },
     }));
     mockHistory.push(AppRoute.MY_LIST);
     const expectedText = 'My list';

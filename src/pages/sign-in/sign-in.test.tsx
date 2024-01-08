@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { withHistory, withStore } from '../../utils/mock-component.tsx';
 import SignIn from './sign-in.tsx';
 import { AuthSliceState } from '../../store/auth/auth.slice.ts';
-import { EAuthorizationStatus } from '../../constants.ts';
+import { AuthorizationStatus } from '../../constants.ts';
 import userEvent from '@testing-library/user-event';
 
 describe('Page Sign in', () => {
@@ -13,7 +13,7 @@ describe('Page Sign in', () => {
     const signInText = 'Sign in';
     const auth: AuthSliceState = {
       user: null,
-      authorizationStatus: EAuthorizationStatus.UNKNOWN
+      authorizationStatus: AuthorizationStatus.UNKNOWN
     };
     const { withStoreComponent } = withStore(<SignIn />, { auth });
     const preparedComponent = withHistory(withStoreComponent);
@@ -32,7 +32,7 @@ describe('Page Sign in', () => {
     const expectedPasswordValue = '1234';
     const auth: AuthSliceState = {
       user: null,
-      authorizationStatus: EAuthorizationStatus.UNKNOWN
+      authorizationStatus: AuthorizationStatus.UNKNOWN
     };
     const { withStoreComponent } = withStore(<SignIn />, { auth });
     const preparedComponent = withHistory(withStoreComponent);

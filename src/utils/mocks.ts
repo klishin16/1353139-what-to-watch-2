@@ -1,7 +1,7 @@
 import { Genre, Movie, MovieDetail, Review, State } from '../types';
 import * as faker from 'faker';
 import { Action } from '@reduxjs/toolkit';
-import { EAuthorizationStatus } from '../constants.ts';
+import { AuthorizationStatus } from '../constants.ts';
 
 export const makeFakeMovie = (): Movie => ({
   id: faker.datatype.string(5),
@@ -47,7 +47,7 @@ export const makeFakeGenre = (): Genre => ({
 export const makeFakeGenres = (n = 5) => new Array(n).fill(null).map(() => makeFakeGenre());
 
 export const makeFakeStore = (initialState?: Partial<State>): State => ({
-  auth: { authorizationStatus: EAuthorizationStatus.NO_AUTH, user: null },
+  auth: { authorizationStatus: AuthorizationStatus.NO_AUTH, user: null },
   movies: {
     movies: [],
     genres: makeFakeGenres(),

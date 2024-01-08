@@ -1,4 +1,4 @@
-import { EAPIRoute, AppRoute, EAuthorizationStatus } from '../../constants.ts';
+import { ApiRoute, AppRoute, AuthorizationStatus } from '../../constants.ts';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Movie, MovieDetail, Review } from '../../types';
@@ -19,7 +19,7 @@ const MoviePage = () => {
 
   useEffect(() => {
     if (id && navigate) {
-      api.get<MovieDetail>(`${EAPIRoute.MOVIES}/${id}`)
+      api.get<MovieDetail>(`${ApiRoute.MOVIES}/${id}`)
         .then(({ data }) => {
           setMovie(data);
         })
@@ -27,12 +27,12 @@ const MoviePage = () => {
           navigate(AppRoute.NOTFOUND);
         });
 
-      api.get<Review[]>(`${EAPIRoute.COMMENTS}/${id}`)
+      api.get<Review[]>(`${ApiRoute.COMMENTS}/${id}`)
         .then(({ data }) => {
           setReviews(data);
         });
 
-      api.get<Movie[]>(`${EAPIRoute.MOVIES }/${ id }/similar`)
+      api.get<Movie[]>(`${ApiRoute.MOVIES }/${ id }/similar`)
         .then(({ data }) => {
           setSimilarMovies(data);
         });
@@ -71,7 +71,7 @@ const MoviePage = () => {
                   <span>Play</span>
                 </button>
                 <MyListButton movieId={movie.id} />
-                { authorizationStatus === EAuthorizationStatus.AUTH && <Link to={`${AppRoute.FILMS}/${id ?? 1}/review`} className="btn film-card__button">Add review</Link> }
+                { authorizationStatus === AuthorizationStatus.AUTH && <Link to={`${AppRoute.FILMS}/${id ?? 1}/review`} className="btn film-card__button">Add review</Link> }
               </div>
             </div>
           </div>
