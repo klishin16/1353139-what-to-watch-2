@@ -3,7 +3,7 @@ import { withHistory, withStore } from '../../utils/mock-component';
 import { Route, Routes } from 'react-router-dom';
 import PrivateRoute from './private-route';
 import { render, screen } from '@testing-library/react';
-import { AppRoute, EAuthorizationStatus } from '../../constants.ts';
+import { AppRoute, AuthorizationStatus } from '../../constants.ts';
 
 describe('Component: PrivateRoute', () => {
   let mockHistory: MemoryHistory;
@@ -34,7 +34,7 @@ describe('Component: PrivateRoute', () => {
     const { withStoreComponent } = withStore(preparedComponent, {
       auth: {
         user: null,
-        authorizationStatus: EAuthorizationStatus.NO_AUTH
+        authorizationStatus: AuthorizationStatus.NO_AUTH
       }
     });
 
@@ -62,7 +62,7 @@ describe('Component: PrivateRoute', () => {
     const { withStoreComponent } = withStore(preparedComponent, {
       auth: {
         user: null,
-        authorizationStatus: EAuthorizationStatus.AUTH
+        authorizationStatus: AuthorizationStatus.AUTH
       }
     });
 
