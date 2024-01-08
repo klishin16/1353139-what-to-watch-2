@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { MovieDetail, Review, ReviewStatistics } from '../../types';
 
 
-enum EMoviePageTab {
+enum MoviePageTab {
   OVERVIEW = 'Overview',
   DETAILS = 'Details',
   REVIEWS = 'Reviews'
@@ -15,9 +15,9 @@ interface MoviePageTabsProps {
 }
 
 export const MoviePageTabs = ({ movie, reviews, reviewsStatistics }: MoviePageTabsProps) => {
-  const [activeTab, setActiveTab] = useState<EMoviePageTab>(EMoviePageTab.OVERVIEW);
+  const [activeTab, setActiveTab] = useState<MoviePageTab>(MoviePageTab.OVERVIEW);
 
-  const handleTabLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, tab: EMoviePageTab) => {
+  const handleTabLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, tab: MoviePageTab) => {
     e.preventDefault();
     setActiveTab(tab);
   };
@@ -60,7 +60,7 @@ export const MoviePageTabs = ({ movie, reviews, reviewsStatistics }: MoviePageTa
 
   const renderContent = () => {
     switch (activeTab) {
-      case EMoviePageTab.OVERVIEW:
+      case MoviePageTab.OVERVIEW:
         return (
           <React.Fragment>
             <div className="film-rating">
@@ -80,7 +80,7 @@ export const MoviePageTabs = ({ movie, reviews, reviewsStatistics }: MoviePageTa
             </div>
           </React.Fragment>
         );
-      case EMoviePageTab.DETAILS:
+      case MoviePageTab.DETAILS:
         return (
           <div className="film-card__text film-card__row">
             <div className="film-card__text-col">
@@ -116,7 +116,7 @@ export const MoviePageTabs = ({ movie, reviews, reviewsStatistics }: MoviePageTa
             </div>
           </div>
         );
-      case EMoviePageTab.REVIEWS:
+      case MoviePageTab.REVIEWS:
         return (
           <div className="film-card__reviews film-card__row">
             { reviews.length ?
@@ -138,7 +138,7 @@ export const MoviePageTabs = ({ movie, reviews, reviewsStatistics }: MoviePageTa
     <div className="film-card__desc">
       <nav className="film-nav film-card__nav">
         <ul className="film-nav__list" data-testid={'tabs-container'}>
-          { Object.values(EMoviePageTab).map((tab) => (
+          { Object.values(MoviePageTab).map((tab) => (
             <li key={tab} className={ `film-nav__item ${ activeTab === tab ? 'film-nav__item--active' : ''}` } data-testid={'tab'}>
               <a href='#' className="film-nav__link" onClick={(e) => handleTabLinkClick(e, tab)}>{ tab }</a>
             </li>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { AddReviewDto } from '../../types';
 import { api } from '../../store';
-import { EAPIRoute } from '../../constants.ts';
+import { ApiRoute } from '../../constants.ts';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -36,9 +36,9 @@ export const AddReviewForm = ({ movieId }: AddReviewFormProps) => {
   const handleSubmitRatingForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
-    api.post(`${EAPIRoute.COMMENTS }/${ movieId}`, reviewForm)
+    api.post(`${ApiRoute.COMMENTS }/${ movieId}`, reviewForm)
       .then(() => {
-        navigate(`${EAPIRoute.MOVIES }/${ movieId}`);
+        navigate(`${ApiRoute.MOVIES }/${ movieId}`);
       })
       .catch(() => {
         setIsLoading(false);

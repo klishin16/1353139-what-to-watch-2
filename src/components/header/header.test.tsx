@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { withHistory, withStore } from '../../utils/mock-component.tsx';
 import { makeFakeStore } from '../../utils/mocks.ts';
 import { Header } from './header.tsx';
-import { EAuthorizationStatus } from '../../constants.ts';
+import { AuthorizationStatus } from '../../constants.ts';
 
 describe('Component Header', () => {
   it('Should render correctly when authorization status AUTH', () => {
@@ -11,7 +11,7 @@ describe('Component Header', () => {
     const componentWithHistory = withHistory(<Header />);
     const { withStoreComponent } = withStore(componentWithHistory, makeFakeStore({
       auth: {
-        authorizationStatus: EAuthorizationStatus.AUTH,
+        authorizationStatus: AuthorizationStatus.AUTH,
         user: null,
       }
     }));
@@ -26,7 +26,7 @@ describe('Component Header', () => {
     const componentWithHistory = withHistory(<Header />);
     const { withStoreComponent } = withStore(componentWithHistory, makeFakeStore({
       auth: {
-        authorizationStatus: EAuthorizationStatus.NO_AUTH,
+        authorizationStatus: AuthorizationStatus.NO_AUTH,
         user: null,
       }
     }));
@@ -41,7 +41,7 @@ describe('Component Header', () => {
     const componentWithHistory = withHistory(<Header />);
     const { withStoreComponent } = withStore(componentWithHistory, makeFakeStore({
       auth: {
-        authorizationStatus: EAuthorizationStatus.UNKNOWN,
+        authorizationStatus: AuthorizationStatus.UNKNOWN,
         user: null,
       }
     }));

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { EAPIRoute, AppRoute } from '../../constants.ts';
+import { ApiRoute, AppRoute } from '../../constants.ts';
 import { MovieDetail } from '../../types';
 import { Footer, Header, Loader, MyListButton } from '../../components';
 import { api } from '../../store';
@@ -13,7 +13,7 @@ const MainPage = () => {
   const [promo, setPromo] = useState<MovieDetail>();
 
   useEffect(() => {
-    api.get<MovieDetail>(EAPIRoute.PROMO)
+    api.get<MovieDetail>(ApiRoute.PROMO)
       .then(({ data }) => {
         setPromo(data);
       });

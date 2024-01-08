@@ -9,7 +9,7 @@ export enum AppRoute {
   NOTFOUND = '*',
 }
 
-export enum EAuthorizationStatus {
+export enum AuthorizationStatus {
   AUTH = 'auth',
   NO_AUTH = 'no_auth',
   UNKNOWN= 'unknown',
@@ -19,7 +19,7 @@ export const MOVIES_BY_PAGE = 8;
 export const AUTH_TOKEN_KEY_NAME = 'what-to-watch-token';
 export const TIMEOUT_SHOW_ERROR = 2000;
 
-export enum EAPIRoute {
+export enum ApiRoute {
   MOVIES = '/films',
   COMMENTS = '/comments',
   FAVORITE_MOVIES = '/favorite',

@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { EAPIRoute, AppRoute } from '../../constants.ts';
+import { ApiRoute, AppRoute } from '../../constants.ts';
 import { useEffect, useRef, useState } from 'react';
 import { useVideoPlayer } from '../../hooks/use-video-player.tsx';
 import { api } from '../../store';
@@ -25,7 +25,7 @@ const PlayerPage = () => {
 
   useEffect(() => {
     if (id && navigate) {
-      api.get<MovieDetail>(`${EAPIRoute.MOVIES}/${id}`)
+      api.get<MovieDetail>(`${ApiRoute.MOVIES}/${id}`)
         .then(({ data }) => {
           setMovie(data);
         })

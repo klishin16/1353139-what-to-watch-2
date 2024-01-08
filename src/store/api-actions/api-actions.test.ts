@@ -13,7 +13,7 @@ import {
   loginAction,
   logoutAction
 } from './api-actions.ts';
-import { EAPIRoute } from '../../constants.ts';
+import { ApiRoute } from '../../constants.ts';
 import { extractActionsTypes, makeFakeMovie, makeFakeMovies } from '../../utils/mocks.ts';
 import { setAuthorizationStatus, setUser } from '../auth/auth.slice.ts';
 import * as tokenStorage from '../../services/token';
@@ -32,7 +32,7 @@ describe('Async actions', () => {
 
   describe('Check auth action', () => {
     it('should dispatch "checkAuthAction.pending" and "checkAuthAction.fulfilled" when server response 200', async () => {
-      mockAxiosAdapter.onGet(EAPIRoute.LOGIN).reply(200);
+      mockAxiosAdapter.onGet(ApiRoute.LOGIN).reply(200);
 
       await store.dispatch(checkAuthAction());
       const actions = extractActionsTypes(store.getActions());
@@ -46,7 +46,7 @@ describe('Async actions', () => {
     });
 
     it('should dispatch "checkAuthAction.pending" and "checkAuthAction.fulfilled" when server response 400', async () => {
-      mockAxiosAdapter.onGet(EAPIRoute.LOGIN).reply(400);
+      mockAxiosAdapter.onGet(ApiRoute.LOGIN).reply(400);
 
       await store.dispatch(checkAuthAction());
       const actions = extractActionsTypes(store.getActions());
@@ -63,7 +63,7 @@ describe('Async actions', () => {
     it('should dispatch "loginAction.pending", "loginAction.fulfilled" when server response 200', async () => {
       const fakeUser: AuthPayload = {email: 'test@test.ru', password: '123456'};
       const fakeServerReplay = {token: 'secret'};
-      mockAxiosAdapter.onPost(EAPIRoute.LOGIN).reply(200, fakeServerReplay);
+      mockAxiosAdapter.onPost(ApiRoute.LOGIN).reply(200, fakeServerReplay);
 
       await store.dispatch(loginAction(fakeUser));
       const actions = extractActionsTypes(store.getActions());
@@ -79,7 +79,7 @@ describe('Async actions', () => {
     it('should call "saveToken" once with the received token', async () => {
       const fakeUser: AuthPayload = {email: 'test@test.ru', password: '123456'};
       const fakeServerReplay = { token: 'secret' };
-      mockAxiosAdapter.onPost(EAPIRoute.LOGIN).reply(200, fakeServerReplay);
+      mockAxiosAdapter.onPost(ApiRoute.LOGIN).reply(200, fakeServerReplay);
       const mockSaveToken = vi.spyOn(tokenStorage, 'saveToken');
 
       await store.dispatch(loginAction(fakeUser));
@@ -91,7 +91,7 @@ describe('Async actions', () => {
 
   describe('logoutAction', () => {
     it('should dispatch "logoutAction.pending", "logoutAction.fulfilled" when server response 204', async() => {
-      mockAxiosAdapter.onDelete(EAPIRoute.LOGOUT).reply(204);
+      mockAxiosAdapter.onDelete(ApiRoute.LOGOUT).reply(204);
 
       await store.dispatch(logoutAction());
       const actions = extractActionsTypes(store.getActions());
@@ -105,7 +105,7 @@ describe('Async actions', () => {
     });
 
     it('should one call "dropToken" with "logoutAction"', async () => {
-      mockAxiosAdapter.onDelete(EAPIRoute.LOGOUT).reply(204);
+      mockAxiosAdapter.onDelete(ApiRoute.LOGOUT).reply(204);
       const mockDropToken = vi.spyOn(tokenStorage, 'dropToken');
 
       await store.dispatch(logoutAction());
@@ -117,7 +117,7 @@ describe('Async actions', () => {
   describe('fetchAllMoviesAction', () => {
     it('should dispatch "fetchAllMoviesAction.pending", "fetchAllMoviesAction.fulfilled" when server response 200', async() => {
       const movies = makeFakeMovies();
-      mockAxiosAdapter.onGet(EAPIRoute.MOVIES).reply(200, movies);
+      mockAxiosAdapter.onGet(ApiRoute.MOVIES).reply(200, movies);
 
       await store.dispatch(fetchAllMoviesAction());
       const actions = extractActionsTypes(store.getActions());
@@ -134,7 +134,7 @@ describe('Async actions', () => {
   describe('fetchFavoriteMoviesAction', () => {
     it('should dispatch "fetchFavoriteMoviesAction.pending", "fetchFavoriteMoviesAction.fulfilled" when server response 200', async() => {
       const movies = makeFakeMovies();
-      mockAxiosAdapter.onGet(EAPIRoute.FAVORITE_MOVIES).reply(200, movies);
+      mockAxiosAdapter.onGet(ApiRoute.FAVORITE_MOVIES).reply(200, movies);
 
       await store.dispatch(fetchFavoriteMoviesAction());
       const actions = extractActionsTypes(store.getActions());
@@ -150,7 +150,7 @@ describe('Async actions', () => {
   describe('changeMovieFavoriteStatusAction', () => {
     it('should dispatch "changeMovieFavoriteStatusAction.pending", "changeMovieFavoriteStatusAction.fulfilled" when server response 200', async() => {
       const movie = makeFakeMovie();
-      mockAxiosAdapter.onPost(`${EAPIRoute.FAVORITE_MOVIES}/${movie.id}/${Number(true)}`).reply(200, movie);
+      mockAxiosAdapter.onPost(`${ApiRoute.FAVORITE_MOVIES}/${movie.id}/${Number(true)}`).reply(200, movie);
 
       await store.dispatch(changeMovieFavoriteStatusAction({ movie, status: true }));
       const actions = extractActionsTypes(store.getActions());
