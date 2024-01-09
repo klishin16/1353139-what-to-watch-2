@@ -1,18 +1,18 @@
 export enum AppRoute {
-  MAIN = '/',
-  SIGN_IN = '/login',
-  MY_LIST = '/mylist',
-  FILM = '/films/:id',
-  FILMS = '/films',
-  ADD_REVIEW = '/films/:id/review',
-  PLAYER = '/player',
-  NOTFOUND = '*',
+  Main = '/',
+  SignIn = '/login',
+  MyList = '/mylist',
+  Film = '/films/:id',
+  Films = '/films',
+  AddReview = '/films/:id/review',
+  Player = '/player',
+  NotFound = '*',
 }
 
 export enum AuthorizationStatus {
-  AUTH = 'auth',
-  NO_AUTH = 'no_auth',
-  UNKNOWN= 'unknown',
+  Auth = 'auth',
+  NoAuth = 'no_auth',
+  Unknown = 'unknown',
 }
 
 export const MOVIES_BY_PAGE = 8;
@@ -20,10 +20,10 @@ export const AUTH_TOKEN_KEY_NAME = 'what-to-watch-token';
 export const TIMEOUT_SHOW_ERROR = 2000;
 
 export enum ApiRoute {
-  MOVIES = '/films',
-  COMMENTS = '/comments',
-  FAVORITE_MOVIES = '/favorite',
-  PROMO = '/promo',
-  LOGIN = '/login',
-  LOGOUT = '/logout',
+  Movies = '/films',
+  Comments = '/comments',
+  FavoriteMovies = '/favorite',
+  Promo = '/promo',
+  Login = '/login',
+  Logout = '/logout',
 }

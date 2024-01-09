@@ -13,7 +13,7 @@ const MainPage = () => {
   const [promo, setPromo] = useState<MovieDetail>();
 
   useEffect(() => {
-    api.get<MovieDetail>(ApiRoute.PROMO)
+    api.get<MovieDetail>(ApiRoute.Promo)
       .then(({ data }) => {
         setPromo(data);
       });
@@ -49,7 +49,7 @@ const MainPage = () => {
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button" onClick={() => navigate(`${AppRoute.PLAYER }/${ promo.id}`)}>
+                <button className="btn btn--play film-card__button" type="button" onClick={() => navigate(`${AppRoute.Player }/${ promo.id}`)}>
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>

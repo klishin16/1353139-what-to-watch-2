@@ -15,7 +15,7 @@ describe('Application Routing', () => {
   it('should render "Main page" when user navigate to "/"', async () => {
     const withHistoryComponent = withHistory(<App />, mockHistory);
     const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore());
-    mockHistory.push(AppRoute.MAIN);
+    mockHistory.push(AppRoute.Main);
     const promoCardTestId = 'promo-card';
 
     render(withStoreComponent);
@@ -27,7 +27,7 @@ describe('Application Routing', () => {
   it('should render "Sign in page" when user navigate to "/login"', () => {
     const withHistoryComponent = withHistory(<App />, mockHistory);
     const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore());
-    mockHistory.push(AppRoute.SIGN_IN);
+    mockHistory.push(AppRoute.SignIn);
 
     render(withStoreComponent);
 
@@ -38,9 +38,9 @@ describe('Application Routing', () => {
   it('should render "My list" when user navigate to "/mylist"', () => {
     const withHistoryComponent = withHistory(<App />, mockHistory);
     const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore({
-      auth: { authorizationStatus: AuthorizationStatus.AUTH, user: null },
+      auth: { authorizationStatus: AuthorizationStatus.Auth, user: null },
     }));
-    mockHistory.push(AppRoute.MY_LIST);
+    mockHistory.push(AppRoute.MyList);
     const expectedText = 'My list';
 
     render(withStoreComponent);

@@ -8,7 +8,7 @@ describe('Auth slice', () => {
   it('should return initial state with emply action', () => {
     const emptyAction = { type: '' };
     const initialState: AuthSliceState = {
-      authorizationStatus: AuthorizationStatus.UNKNOWN,
+      authorizationStatus: AuthorizationStatus.Unknown,
       user: null
     };
 
@@ -20,7 +20,7 @@ describe('Auth slice', () => {
   it('should return initial state with empty action and undefined state', () => {
     const emptyAction = { type: '' };
     const initialState: AuthSliceState = {
-      authorizationStatus: AuthorizationStatus.UNKNOWN,
+      authorizationStatus: AuthorizationStatus.Unknown,
       user: null
     };
 
@@ -31,15 +31,15 @@ describe('Auth slice', () => {
 
   it('should set authorization status', () => {
     const initialState: AuthSliceState = {
-      authorizationStatus: AuthorizationStatus.UNKNOWN,
+      authorizationStatus: AuthorizationStatus.Unknown,
       user: null
     };
     const expectedState: AuthSliceState = {
-      authorizationStatus: AuthorizationStatus.AUTH,
+      authorizationStatus: AuthorizationStatus.Auth,
       user: null
     };
 
-    const result = authSlice.reducer(initialState, setAuthorizationStatus(AuthorizationStatus.AUTH));
+    const result = authSlice.reducer(initialState, setAuthorizationStatus(AuthorizationStatus.Auth));
 
     expect(result).toEqual(expectedState);
   });
@@ -52,11 +52,11 @@ describe('Auth slice', () => {
       avatarUrl: faker.internet.avatar()
     };
     const initialState: AuthSliceState = {
-      authorizationStatus: AuthorizationStatus.UNKNOWN,
+      authorizationStatus: AuthorizationStatus.Unknown,
       user: null
     };
     const expectedState: AuthSliceState = {
-      authorizationStatus: AuthorizationStatus.UNKNOWN,
+      authorizationStatus: AuthorizationStatus.Unknown,
       user
     };
 

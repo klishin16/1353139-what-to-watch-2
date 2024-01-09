@@ -3,9 +3,9 @@ import { MovieDetail, Review, ReviewStatistics } from '../../types';
 
 
 enum MoviePageTab {
-  OVERVIEW = 'Overview',
-  DETAILS = 'Details',
-  REVIEWS = 'Reviews'
+  Overview = 'Overview',
+  Details = 'Details',
+  Reviews = 'Reviews'
 }
 
 interface MoviePageTabsProps {
@@ -15,7 +15,7 @@ interface MoviePageTabsProps {
 }
 
 export const MoviePageTabs = ({ movie, reviews, reviewsStatistics }: MoviePageTabsProps) => {
-  const [activeTab, setActiveTab] = useState<MoviePageTab>(MoviePageTab.OVERVIEW);
+  const [activeTab, setActiveTab] = useState<MoviePageTab>(MoviePageTab.Overview);
 
   const handleTabLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, tab: MoviePageTab) => {
     e.preventDefault();
@@ -60,7 +60,7 @@ export const MoviePageTabs = ({ movie, reviews, reviewsStatistics }: MoviePageTa
 
   const renderContent = () => {
     switch (activeTab) {
-      case MoviePageTab.OVERVIEW:
+      case MoviePageTab.Overview:
         return (
           <React.Fragment>
             <div className="film-rating">
@@ -80,7 +80,7 @@ export const MoviePageTabs = ({ movie, reviews, reviewsStatistics }: MoviePageTa
             </div>
           </React.Fragment>
         );
-      case MoviePageTab.DETAILS:
+      case MoviePageTab.Details:
         return (
           <div className="film-card__text film-card__row">
             <div className="film-card__text-col">
@@ -116,7 +116,7 @@ export const MoviePageTabs = ({ movie, reviews, reviewsStatistics }: MoviePageTa
             </div>
           </div>
         );
-      case MoviePageTab.REVIEWS:
+      case MoviePageTab.Reviews:
         return (
           <div className="film-card__reviews film-card__row">
             { reviews.length ?

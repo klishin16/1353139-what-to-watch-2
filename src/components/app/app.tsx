@@ -26,7 +26,7 @@ const App = () => {
       <Routes>
         <Route
           index
-          path={ AppRoute.MAIN }
+          path={ AppRoute.Main }
           element={
             <Loader isLoading={isLoading} >
               <MainPage />
@@ -34,11 +34,11 @@ const App = () => {
           }
         />
         <Route
-          path={ AppRoute.SIGN_IN }
+          path={ AppRoute.SignIn }
           element={ <SignInPage/> }
         />
         <Route
-          path={ AppRoute.MY_LIST }
+          path={ AppRoute.MyList }
           element={
             <PrivateRoute>
               <MyListPage />
@@ -46,11 +46,11 @@ const App = () => {
           }
         />
         <Route
-          path={ AppRoute.FILM }
+          path={ AppRoute.Film }
           element={ <MoviePage/> }
         />
         <Route
-          path={ AppRoute.ADD_REVIEW }
+          path={ AppRoute.AddReview }
           element={
             <PrivateRoute>
               <AddReviewPage />
@@ -58,11 +58,11 @@ const App = () => {
           }
         />
         <Route
-          path={ `${AppRoute.PLAYER }/:id` }
+          path={ `${AppRoute.Player }/:id` }
           element={ <PlayerPage/> }
         />
         <Route
-          path={ AppRoute.NOTFOUND }
+          path={ AppRoute.NotFound }
           element={ <NotFoundPage/> }
         />
       </Routes>

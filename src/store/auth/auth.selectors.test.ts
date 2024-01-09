@@ -5,7 +5,7 @@ import { getAuthorizationState, getAuthorizationStatus, getUser } from './auth.s
 
 describe('Auth slice selectors', () => {
   const authState: AuthSliceState = {
-    authorizationStatus: AuthorizationStatus.AUTH,
+    authorizationStatus: AuthorizationStatus.Auth,
     user: null
   };
 
@@ -19,7 +19,7 @@ describe('Auth slice selectors', () => {
 
     const result = getAuthorizationStatus({ auth: authState });
 
-    expect(result).toBe(AuthorizationStatus.AUTH);
+    expect(result).toBe(AuthorizationStatus.Auth);
   });
 
 

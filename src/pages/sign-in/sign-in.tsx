@@ -24,7 +24,7 @@ const SignInPage = () => {
           .unwrap()
           .then(() => {
             /** Переходим на главную страницу при успешной авторизации */
-            navigate(AppRoute.MAIN);
+            navigate(AppRoute.Main);
           })
           .catch(() => {
             dispatch(setError('Server error'));

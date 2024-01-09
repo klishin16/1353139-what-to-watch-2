@@ -17,13 +17,13 @@ export const Header = ({ children }: PropsWithChildren) => {
 
   const handleAvatarClick = (e: React.MouseEvent<HTMLImageElement>) => {
     e.preventDefault();
-    navigate(AppRoute.MY_LIST);
+    navigate(AppRoute.MyList);
   };
 
   return (
     <header className="page-header user-page__head">
       <div className="logo">
-        <Link to={ AppRoute.MAIN } className="logo__link">
+        <Link to={ AppRoute.Main } className="logo__link">
           <span className="logo__letter logo__letter--1">W</span>
           <span className="logo__letter logo__letter--2">T</span>
           <span className="logo__letter logo__letter--3">W</span>
@@ -33,7 +33,7 @@ export const Header = ({ children }: PropsWithChildren) => {
       { children }
 
       <ul className="user-block">
-        { authorizationStatus === AuthorizationStatus.AUTH ?
+        { authorizationStatus === AuthorizationStatus.Auth ?
           <>
             <li className="user-block__item">
               <div className="user-block__avatar">
@@ -44,7 +44,7 @@ export const Header = ({ children }: PropsWithChildren) => {
               <a className="user-block__link" onClick={handleSignOutClick}>Sign out</a>
             </li>
           </>
-          : <li className="user-block__item"><Link to={AppRoute.SIGN_IN} className="user-block__link">Sign in</Link></li>}
+          : <li className="user-block__item"><Link to={AppRoute.SignIn} className="user-block__link">Sign in</Link></li>}
       </ul>
     </header>
   );

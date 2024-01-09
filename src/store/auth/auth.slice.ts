@@ -9,7 +9,7 @@ export interface AuthSliceState {
 }
 
 const initialState: AuthSliceState = {
-  authorizationStatus: AuthorizationStatus.UNKNOWN,
+  authorizationStatus: AuthorizationStatus.Unknown,
   user: null
 };
 

@@ -47,7 +47,7 @@ export const makeFakeGenre = (): Genre => ({
 export const makeFakeGenres = (n = 5) => new Array(n).fill(null).map(() => makeFakeGenre());
 
 export const makeFakeStore = (initialState?: Partial<State>): State => ({
-  auth: { authorizationStatus: AuthorizationStatus.NO_AUTH, user: null },
+  auth: { authorizationStatus: AuthorizationStatus.NoAuth, user: null },
   movies: {
     movies: [],
     genres: makeFakeGenres(),

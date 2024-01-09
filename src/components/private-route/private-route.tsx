@@ -12,14 +12,14 @@ function PrivateRoute(props: PrivateRouteProps): JSX.Element {
   const authorizationStatus = useTypedSelector(getAuthorizationStatus);
   const { children} = props;
 
-  if (authorizationStatus === AuthorizationStatus.UNKNOWN) {
+  if (authorizationStatus === AuthorizationStatus.Unknown) {
     return <Loader />;
   }
 
   return (
-    authorizationStatus === AuthorizationStatus.AUTH
+    authorizationStatus === AuthorizationStatus.Auth
       ? children
-      : <Navigate to={AppRoute.SIGN_IN} />
+      : <Navigate to={AppRoute.SignIn} />
   );
 }
 

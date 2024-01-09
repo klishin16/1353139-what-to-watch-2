@@ -12,7 +12,7 @@ export const fetchAllMoviesAction = createAsyncThunk<Movie[], undefined, {
   state: State;
   extra: AxiosInstance;
 }>('movies/fetchAllMovies', async (_, { dispatch, extra: api }) => {
-  const { data } = await api.get<Movie[]>(ApiRoute.MOVIES);
+  const { data } = await api.get<Movie[]>(ApiRoute.Movies);
   dispatch(setAllMovies(data));
   dispatch(setLoading(false));
   return data;
@@ -23,7 +23,7 @@ export const fetchFavoriteMoviesAction = createAsyncThunk<Movie[], undefined, {
   state: State;
   extra: AxiosInstance;
 }>('movies/fetchFavoriteMovies', async (_, { dispatch, extra: api }) => {
-  const { data } = await api.get<Movie[]>(ApiRoute.FAVORITE_MOVIES);
+  const { data } = await api.get<Movie[]>(ApiRoute.FavoriteMovies);
   dispatch(setFavoriteMovies(data));
   return data;
 });
@@ -36,11 +36,11 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
   'auth/checkAuth',
   async (_arg, {dispatch, extra: api }) => {
     try {
-      const { data: user } = await api.get<User>(ApiRoute.LOGIN);
+      const { data: user } = await api.get<User>(ApiRoute.Login);
       dispatch(setUser(user));
-      dispatch(setAuthorizationStatus(AuthorizationStatus.AUTH));
+      dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
     } catch {
-      dispatch(setAuthorizationStatus(AuthorizationStatus.NO_AUTH));
+      dispatch(setAuthorizationStatus(AuthorizationStatus.NoAuth));
     }
   },
 );
@@ -52,10 +52,10 @@ export const loginAction = createAsyncThunk<void, AuthPayload, {
 }>(
   'auth/login',
   async ({ email, password}, {dispatch, extra: api}) => {
-    const {data: user} = await api.post<User>(ApiRoute.LOGIN, {email, password});
+    const {data: user} = await api.post<User>(ApiRoute.Login, {email, password});
     saveToken(user.token);
     dispatch(setUser(user));
-    dispatch(setAuthorizationStatus(AuthorizationStatus.AUTH));
+    dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
   },
 );
 
@@ -66,10 +66,10 @@ export const logoutAction = createAsyncThunk<void, undefined, {
 }>(
   'auth/logout',
   async (_arg, {dispatch, extra: api}) => {
-    await api.delete(ApiRoute.LOGOUT);
+    await api.delete(ApiRoute.Logout);
     dropToken();
     dispatch(setUser(null));
-    dispatch(setAuthorizationStatus(AuthorizationStatus.NO_AUTH));
+    dispatch(setAuthorizationStatus(AuthorizationStatus.NoAuth));
   },
 );
 
@@ -88,6 +88,6 @@ export const changeMovieFavoriteStatusAction = createAsyncThunk<MovieChangeFavor
   state: State;
   extra: AxiosInstance;
 }>('movies/changeMovieFavoriteStatus', async ({ movie, status }, { extra: api }) => {
-  await api.post(`${ApiRoute.FAVORITE_MOVIES }/${ movie.id }/${Number(status)}`);
+  await api.post(`${ApiRoute.FavoriteMovies }/${ movie.id }/${Number(status)}`);
   return { movie, status };
 });

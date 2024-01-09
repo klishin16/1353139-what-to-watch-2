@@ -13,7 +13,7 @@ describe('Page Sign in', () => {
     const signInText = 'Sign in';
     const auth: AuthSliceState = {
       user: null,
-      authorizationStatus: AuthorizationStatus.UNKNOWN
+      authorizationStatus: AuthorizationStatus.Unknown
     };
     const { withStoreComponent } = withStore(<SignIn />, { auth });
     const preparedComponent = withHistory(withStoreComponent);
@@ -32,7 +32,7 @@ describe('Page Sign in', () => {
     const expectedPasswordValue = '1234';
     const auth: AuthSliceState = {
       user: null,
-      authorizationStatus: AuthorizationStatus.UNKNOWN
+      authorizationStatus: AuthorizationStatus.Unknown
     };
     const { withStoreComponent } = withStore(<SignIn />, { auth });
     const preparedComponent = withHistory(withStoreComponent);

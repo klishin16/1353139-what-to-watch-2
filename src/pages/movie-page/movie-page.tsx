@@ -19,20 +19,20 @@ const MoviePage = () => {
 
   useEffect(() => {
     if (id && navigate) {
-      api.get<MovieDetail>(`${ApiRoute.MOVIES}/${id}`)
+      api.get<MovieDetail>(`${ApiRoute.Movies}/${id}`)
         .then(({ data }) => {
           setMovie(data);
         })
         .catch(() => {
-          navigate(AppRoute.NOTFOUND);
+          navigate(AppRoute.NotFound);
         });
 
-      api.get<Review[]>(`${ApiRoute.COMMENTS}/${id}`)
+      api.get<Review[]>(`${ApiRoute.Comments}/${id}`)
         .then(({ data }) => {
           setReviews(data);
         });
 
-      api.get<Movie[]>(`${ApiRoute.MOVIES }/${ id }/similar`)
+      api.get<Movie[]>(`${ApiRoute.Movies }/${ id }/similar`)
         .then(({ data }) => {
           setSimilarMovies(data);
         });
@@ -64,14 +64,14 @@ const MoviePage = () => {
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button" onClick={() => navigate(`${AppRoute.PLAYER }/${ movie.id}`)}>
+                <button className="btn btn--play film-card__button" type="button" onClick={() => navigate(`${AppRoute.Player }/${ movie.id}`)}>
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
                 </button>
                 <MyListButton movieId={movie.id} />
-                { authorizationStatus === AuthorizationStatus.AUTH && <Link to={`${AppRoute.FILMS}/${id ?? 1}/review`} className="btn film-card__button">Add review</Link> }
+                { authorizationStatus === AuthorizationStatus.Auth && <Link to={`${AppRoute.Films}/${id ?? 1}/review`} className="btn film-card__button">Add review</Link> }
               </div>
             </div>
           </div>

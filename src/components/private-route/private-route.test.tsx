@@ -13,7 +13,7 @@ describe('Component: PrivateRoute', () => {
   });
 
   beforeEach(() => {
-    mockHistory.push(AppRoute.MY_LIST);
+    mockHistory.push(AppRoute.MyList);
   });
 
   it('should render component for public route, when user not authorized', () => {
@@ -21,8 +21,8 @@ describe('Component: PrivateRoute', () => {
     const notExpectedText = 'private route';
     const preparedComponent = withHistory(
       <Routes>
-        <Route path={AppRoute.SIGN_IN} element={<span>{expectedText}</span>} />
-        <Route path={AppRoute.MY_LIST} element={
+        <Route path={AppRoute.SignIn} element={<span>{expectedText}</span>} />
+        <Route path={AppRoute.MyList} element={
           <PrivateRoute>
             <span>{notExpectedText}</span>
           </PrivateRoute>
@@ -34,7 +34,7 @@ describe('Component: PrivateRoute', () => {
     const { withStoreComponent } = withStore(preparedComponent, {
       auth: {
         user: null,
-        authorizationStatus: AuthorizationStatus.NO_AUTH
+        authorizationStatus: AuthorizationStatus.NoAuth
       }
     });
 
@@ -49,8 +49,8 @@ describe('Component: PrivateRoute', () => {
     const notExpectedText = 'public route';
     const preparedComponent = withHistory(
       <Routes>
-        <Route path={AppRoute.SIGN_IN} element={<span>{notExpectedText}</span>} />
-        <Route path={AppRoute.MY_LIST} element={
+        <Route path={AppRoute.SignIn} element={<span>{notExpectedText}</span>} />
+        <Route path={AppRoute.MyList} element={
           <PrivateRoute>
             <span>{expectedText}</span>
           </PrivateRoute>
@@ -62,7 +62,7 @@ describe('Component: PrivateRoute', () => {
     const { withStoreComponent } = withStore(preparedComponent, {
       auth: {
         user: null,
-        authorizationStatus: AuthorizationStatus.AUTH
+        authorizationStatus: AuthorizationStatus.Auth
       }
     });
 

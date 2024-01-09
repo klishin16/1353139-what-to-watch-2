@@ -25,21 +25,21 @@ const PlayerPage = () => {
 
   useEffect(() => {
     if (id && navigate) {
-      api.get<MovieDetail>(`${ApiRoute.MOVIES}/${id}`)
+      api.get<MovieDetail>(`${ApiRoute.Movies}/${id}`)
         .then(({ data }) => {
           setMovie(data);
         })
         .catch(() => {
-          navigate(AppRoute.NOTFOUND);
+          navigate(AppRoute.NotFound);
         });
     }
   }, [id, navigate]);
 
   const handleExit = () => {
     if (id) {
-      navigate(`${AppRoute.FILMS }/${id}`);
+      navigate(`${AppRoute.Films }/${id}`);
     } else {
-      navigate(AppRoute.MAIN);
+      navigate(AppRoute.Main);
     }
   };
 

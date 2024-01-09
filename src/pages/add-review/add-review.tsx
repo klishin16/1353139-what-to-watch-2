@@ -14,7 +14,7 @@ const AddReviewPage = () => {
   useEffect(() => {
     let isNeedSetMovie = true;
     if (id) {
-      api.get<MovieDetail>(`${ApiRoute.MOVIES}/${id}`)
+      api.get<MovieDetail>(`${ApiRoute.Movies}/${id}`)
         .then(({ data }) => isNeedSetMovie && setMovie(data));
     }
     return () => {

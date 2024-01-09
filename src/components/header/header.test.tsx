@@ -6,12 +6,12 @@ import { Header } from './header.tsx';
 import { AuthorizationStatus } from '../../constants.ts';
 
 describe('Component Header', () => {
-  it('Should render correctly when authorization status AUTH', () => {
+  it('Should render correctly when authorization status Auth', () => {
     const expectedSignOutText = 'Sign out';
     const componentWithHistory = withHistory(<Header />);
     const { withStoreComponent } = withStore(componentWithHistory, makeFakeStore({
       auth: {
-        authorizationStatus: AuthorizationStatus.AUTH,
+        authorizationStatus: AuthorizationStatus.Auth,
         user: null,
       }
     }));
@@ -21,12 +21,12 @@ describe('Component Header', () => {
     expect(screen.getByText(expectedSignOutText)).toBeInTheDocument();
   });
 
-  it('Should render correctly when authorization status NO_AUTH', () => {
+  it('Should render correctly when authorization status NoAuth', () => {
     const expectedSignInText = 'Sign in';
     const componentWithHistory = withHistory(<Header />);
     const { withStoreComponent } = withStore(componentWithHistory, makeFakeStore({
       auth: {
-        authorizationStatus: AuthorizationStatus.NO_AUTH,
+        authorizationStatus: AuthorizationStatus.NoAuth,
         user: null,
       }
     }));
@@ -36,12 +36,12 @@ describe('Component Header', () => {
     expect(screen.getByText(expectedSignInText)).toBeInTheDocument();
   });
 
-  it('Should render correctly when authorization status UNKNOWN', () => {
+  it('Should render correctly when authorization status Unknown', () => {
     const expectedSignInText = 'Sign in';
     const componentWithHistory = withHistory(<Header />);
     const { withStoreComponent } = withStore(componentWithHistory, makeFakeStore({
       auth: {
-        authorizationStatus: AuthorizationStatus.UNKNOWN,
+        authorizationStatus: AuthorizationStatus.Unknown,
         user: null,
       }
     }));

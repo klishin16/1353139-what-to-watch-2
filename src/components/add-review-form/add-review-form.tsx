@@ -36,9 +36,9 @@ export const AddReviewForm = ({ movieId }: AddReviewFormProps) => {
   const handleSubmitRatingForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
-    api.post(`${ApiRoute.COMMENTS }/${ movieId}`, reviewForm)
+    api.post(`${ApiRoute.Comments }/${ movieId}`, reviewForm)
       .then(() => {
-        navigate(`${ApiRoute.MOVIES }/${ movieId}`);
+        navigate(`${ApiRoute.Movies }/${ movieId}`);
       })
       .catch(() => {
         setIsLoading(false);

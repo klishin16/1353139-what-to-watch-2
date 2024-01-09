@@ -31,7 +31,7 @@ const MovieCard = React.memo(({ movie }: MovieCardProps) => {
 
   const handleCardClick = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    navigate(`${AppRoute.FILMS }/${ movie.id}`);
+    navigate(`${AppRoute.Films }/${ movie.id}`);
   };
 
   return (
